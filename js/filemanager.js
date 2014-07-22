@@ -1,0 +1,9 @@
+
+
+
+
+$(function() {
+    
+    $('#filemanager-upload').modal();
+    
+});

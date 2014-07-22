@@ -11,7 +11,8 @@
 		}
 	],
       "require": {
-        "aws/aws-sdk-php": "2.*"
+        "aws/aws-sdk-php": "2.*",
+        "2amigos/yii2-file-upload-widget" : "*"
       },
 	"autoload": {
 		"psr-4": {
