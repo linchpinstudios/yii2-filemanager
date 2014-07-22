@@ -29,3 +29,15 @@ Once the extension is installed, simply use it in your code by  :
 
 ```php
 <?= \linchpinstudios\filemanager\AutoloadExample::widget(); ?>```
+
+
+
+```php
+<?php
+    ......
+    'modules' => [
+        'filemanager' => [
+            'class' => 'linchpinstudios\filemanager\Module',
+        ],
+    ],
+    ......```
