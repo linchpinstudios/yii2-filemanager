@@ -1,0 +1,18 @@
+{
+	"name": "linchpinstudios/yii2-filemanager",
+	"description": "A file manager for Yii2. Allow you to dynamically manager images and files from any location",
+	"type": "yii2-extension",
+	"keywords": ["yii2","extension","file","manager","aws"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Josh Hagel",
+			"email": "joshhagel@linchpinstudios.com"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"linchpinstudios\\filemanager\\": ""
+		}
+	}
+}
