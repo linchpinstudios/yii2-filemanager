@@ -8,11 +8,12 @@ class Module extends \yii\base\Module
     
     public $thumnails = [[100,100]];
     
-    public $path = '@web/files/';
+    public $path = 'files/';
     
     public $thumbPath = '@web/files/thumb/';
     
     public $aws = [
+        'enable' => false,
         'key' => '',
         'secret' => '',
     	'bucket' => '',

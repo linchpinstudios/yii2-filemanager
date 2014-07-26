@@ -1,14 +1,70 @@
 <?php
-    
-    use yii\helpers\Html;
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use dosamigos\fileupload\FileUploadUI;
+
+
+/* @var $this yii\web\View */
+/* @var $searchModel linchpinstudios\filemanager\models\FilesSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Files';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="files-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <p>
+        <?= Html::a('Create Files', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'user_id',
+            'file_name',
+            'type',
+            'title',
+            // 'size',
+            // 'width',
+            // 'height',
+            // 'date',
+            // 'date_gmt',
+            // 'update',
+            // 'update_gmt',
+
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
+
+</div>
+
+
+
+<?= FileUploadUI::widget([
+    'model' => $model,
+    'attribute' => 'file_name',
+    'url' => ['files/upload'], // your url, this is just for demo purposes,
+    'options' => ['accept' => 'image/*'],
+    'clientOptions' => [
+        'maxFileSize' => 2000000
+    ]
+]);?>
+
 
 <div class="filemanager-default-index">
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="pull-left">
-                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']),['filemanager/files/filemodal'],['class' => 'btn btn-default navbar-btn', 'data-toggle' => 'modal', 'data-target' => '#filemanagerUpload']); ?>
+                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']),['files/filemodal'],['class' => 'btn btn-default navbar-btn', 'data-toggle' => 'modal', 'data-target' => '#filemanagerUpload']); ?>
             </div>
             <form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
@@ -40,6 +96,8 @@
                   <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
                 </a>
               </div>
+            </div>
+            <div class="row">
               <div class="col-xs-6 col-md-3">
                 <a href="#" class="thumbnail">
                   <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
@@ -60,6 +118,8 @@
                   <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
                 </a>
               </div>
+            </div>
+            <div class="row">
               <div class="col-xs-6 col-md-3">
                 <a href="#" class="thumbnail">
                   <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
@@ -102,13 +162,7 @@
 <div class="modal fade" id="filemanagerUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-      </div>
+    
     </div>
   </div>
 </div>
