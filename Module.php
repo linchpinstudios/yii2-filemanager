@@ -6,7 +6,7 @@ class Module extends \yii\base\Module
 {
     public $controllerNamespace = 'linchpinstudios\filemanager\controllers';
     
-    public $thumnails = [[100,100]];
+    public $thumbnails = [[100,100]];
     
     public $path = 'files/';
     

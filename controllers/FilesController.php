@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 use yii\web\HttpException;
 use yii\web\Response;
 use Aws\S3\S3Client;
+use yii\imagine\Image;
 
 /**
  * FilesController implements the CRUD actions for Files model.
@@ -27,6 +28,7 @@ class FilesController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+                    'upload' => ['post'],
                 ],
             ],
         ];
@@ -64,6 +66,12 @@ class FilesController extends Controller
     }
     
     
+    /**
+     * actionUpload function.
+     * 
+     * @access public
+     * @return string JSON
+     */
     public function actionUpload()
     {
         Yii::$app->response->getHeaders()->set('Vary', 'Accept');
@@ -73,24 +81,28 @@ class FilesController extends Controller
         
         $path = $this->module->path;
         $awsConfig = $this->module->aws;
-        $thumnails = $this->module->thumnails;
+        $thumbnails = $this->module->thumbnails;
         
         $file = UploadedFile::getInstance($model,'file_name');
         
-        if($asw['enabled']){
-            
-            $aws = $this->awsInit();
-            
-            $aws->get('S3');
-            $aws->putObject([
-                'key' => $path.$file->name,
-                'Bucket' => $awsConfig['bucket'],
-            ]);
-            
-        }else{
-            
-            $file->saveAs($path.$file->name);
-        }
+        
+        //Upload file
+            if($awsConfig['enable']){
+                
+                $this->uploadAws($file);
+                
+            }else{
+                
+                $file->saveAs($path.$file->name);
+                
+            }
+        
+        //Create Thumbnails
+            if(!empty($thumbnails)){
+                $this->createThumbnails($file);
+                
+            }
+        
         
         $model->user_id = 0;
         $model->url = $path.$file->name;
@@ -100,8 +112,8 @@ class FilesController extends Controller
         $model->type = $file->type;
         $model->title = $file->name;
         $model->size = $file->size;
-        $model->width = $size[0];
-        $model->height = $size[1];
+        /*$model->width = $size[0];
+        $model->height = $size[1];*/
         
         $model->save();
         
@@ -198,6 +210,41 @@ class FilesController extends Controller
     }
     
     
+    
+    protected function createThumbnails($file)
+    {
+        
+        $awsConfig = $this->module->aws;
+        
+        $thumbnails = $this->module->thumbnails;
+        
+        $path = $this->module->path;
+        
+        error_log(print_r($file,true));
+        
+        foreach($thumbnails as $tn){
+            
+            $thumb = Image::thumbnail($path.$file->name, $tn[0], $tn[1]);
+            
+            //Upload file
+            if($awsConfig['enable']){
+                
+                $this->uploadAws($file,true);
+                
+            }else{
+                
+                $thumb->saveAs($path.'thumbnails/'.$file->name);
+                
+            }
+            
+        }
+        
+        return true;
+    }
+    
+    
+    
+    
     protected function awsInit(){
         
         $awsConfig = $this->module->aws;
@@ -213,11 +260,73 @@ class FilesController extends Controller
         }
         
         $config = array(
-            'key'    => $aws['key'],
-            'secret' => $aws['secret'],
+            'key'    => $awsConfig['key'],
+            'secret' => $awsConfig['secret'],
         );
         $aws = S3Client::factory($config);
         
         return $aws;
     }
+    
+    
+    
+    
+    protected function uploadAws($file,$thumb = false,$path = null){
+        
+        if(is_null($path)){
+            $path = $this->module->path;
+        }
+        
+        if($thumb){
+            $path = $path.'thumbnails/';
+        }
+        
+        error_log($path);
+        
+        $awsConfig = $this->module->aws;
+        
+        $aws = $this->awsInit();
+        
+        $aws->get('S3');
+        
+        $aws->putObject([
+            'Key' => $path.$file->name,
+            'Bucket' => $awsConfig['bucket'],
+            'SourceFile' => $file->tempName,
+        ]);
+        
+    }
+    
+    
+    
+    
+    protected function convertPHPSizeToBytes($sSize)  
+    {  
+        if ( is_numeric( $sSize) ) {
+           return $sSize;
+        }
+        $sSuffix = substr($sSize, -1);  
+        $iValue = substr($sSize, 0, -1);  
+        switch(strtoupper($sSuffix)){  
+        case 'P':  
+            $iValue *= 1024;  
+        case 'T':  
+            $iValue *= 1024;  
+        case 'G':  
+            $iValue *= 1024;  
+        case 'M':  
+            $iValue *= 1024;  
+        case 'K':  
+            $iValue *= 1024;  
+            break;  
+        }  
+        return $iValue;  
+    }  
+
+    protected function getMaximumFileUploadSize()  
+    {  
+        return min(convertPHPSizeToBytes(ini_get('post_max_size')), convertPHPSizeToBytes(ini_get('upload_max_filesize')));  
+    }  
+    
+    
 }

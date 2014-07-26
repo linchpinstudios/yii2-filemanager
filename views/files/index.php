@@ -12,58 +12,13 @@ use dosamigos\fileupload\FileUploadUI;
 $this->title = 'Files';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="files-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Files', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'user_id',
-            'file_name',
-            'type',
-            'title',
-            // 'size',
-            // 'width',
-            // 'height',
-            // 'date',
-            // 'date_gmt',
-            // 'update',
-            // 'update_gmt',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-</div>
-
-
-
-<?= FileUploadUI::widget([
-    'model' => $model,
-    'attribute' => 'file_name',
-    'url' => ['files/upload'], // your url, this is just for demo purposes,
-    'options' => ['accept' => 'image/*'],
-    'clientOptions' => [
-        'maxFileSize' => 2000000
-    ]
-]);?>
-
 
 <div class="filemanager-default-index">
 
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="pull-left">
+                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']),['files/filemodal'],['data-toggle' => 'modal', 'data-target' => '#filemanagerUpload', 'class' => 'btn btn-default navbar-btn disabled',]); ?>
                 <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']),['files/filemodal'],['class' => 'btn btn-default navbar-btn', 'data-toggle' => 'modal', 'data-target' => '#filemanagerUpload']); ?>
             </div>
             <form class="navbar-form navbar-right" role="search">
@@ -75,71 +30,84 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
-            <div class="row">
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
+            <div class="display-images">
+                <div class="row">
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                  <div class="col-xs-6 col-md-3">
+                    <a href="#" class="thumbnail">
+                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
+                    </a>
+                  </div>
+                </div>
             </div>
-            <div class="row">
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <a href="#" class="thumbnail">
-                  <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                </a>
-              </div>
+            <div class="upload-images">
+                <?= FileUploadUI::widget([
+                    'model' => $model,
+                    'attribute' => 'file_name',
+                    'url' => ['files/upload'], // your url, this is just for demo purposes,
+                    'options' => ['accept' => 'image/*'],
+                    'clientOptions' => [
+                        'maxFileSize' => 2000000
+                    ]
+                ]);?>
             </div>
         </div>
         <div class="panel-footer">
@@ -155,14 +123,4 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="filemanagerUpload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    
-    </div>
-  </div>
 </div>
