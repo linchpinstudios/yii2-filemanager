@@ -5,7 +5,7 @@
  * @license http://opensource.org/licenses/MIT
  */
 
-namespace linchpinstudios\datetimepicker\Assets;
+namespace linchpinstudios\filemanager\assets;
 
 use yii\web\AssetBundle;
 
@@ -26,5 +26,6 @@ class FilemanagerAssets extends AssetBundle
     ];
     public $depends = [
         'yii\web\JqueryAsset',
+        'yii\bootstrap\BootstrapAsset',
     ];
 }

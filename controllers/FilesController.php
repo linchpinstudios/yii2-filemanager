@@ -14,12 +14,28 @@ use yii\web\HttpException;
 use yii\web\Response;
 use Aws\S3\S3Client;
 use yii\imagine\Image;
+use linchpinstudios\filemanager\assets\FilemanagerAssets;
 
 /**
  * FilesController implements the CRUD actions for Files model.
  */
 class FilesController extends Controller
 {
+
+    public $page_size = 12;
+
+    private $typeMap = [
+        'application/pdf'   => '.pdf',
+        'application/zip'   => '.zip',
+        'image/gif'         => '.gif',
+        'image/jpeg'        => '.jpg',
+        'image/png'         => '.png',
+        'text/css'          => '.css',
+        'text/html'         => '.html',
+        'text/javascript'   => '.js',
+        'text/plain'        => '.txt',
+        'text/xml'          => '.xml',
+    ];
     
     public function behaviors()
     {
@@ -40,6 +56,9 @@ class FilesController extends Controller
      */
     public function actionIndex()
     {
+
+        FilemanagerAssets::register($this->view);
+        
         $searchModel = new FilesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model = new Files();
@@ -85,29 +104,33 @@ class FilesController extends Controller
         
         $file = UploadedFile::getInstance($model,'file_name');
         
+        $name = time().'-'.md5($file->name).$this->typeMap[$file->type];
         
         //Upload file
             if($awsConfig['enable']){
                 
-                $this->uploadAws($file);
+                $this->uploadAws($file,$name);
+                
+                $url = $awsConfig['url'];
                 
             }else{
                 
-                $file->saveAs($path.$file->name);
+                $file->saveAs($path.$name);
+                
+                $url = '';
                 
             }
         
         //Create Thumbnails
             if(!empty($thumbnails)){
-                $this->createThumbnails($file);
-                
+                $this->createThumbnails($file,$name); 
             }
         
         
         $model->user_id = 0;
-        $model->url = $path.$file->name;
-        $model->thumbnail_url = $path.$file->name;
-        $model->file_name = $file->name;
+        $model->url = $path.$name;
+        $model->thumbnail_url = $path.'thumbnails/'.$name;
+        $model->file_name = $name;
         $model->title = $file->name;
         $model->type = $file->type;
         $model->title = $file->name;
@@ -118,18 +141,21 @@ class FilesController extends Controller
         $model->save();
         
         $response['files'][] = [
-            'url' => $model->url,
-            'thumbnail_url' => $model->url,
-            'name' => $model->file_name,
+            'url' => $url.$model->url,
+            'thumbnailUrl' => $url.$model->thumbnail_url,
+            'name' => $model->title,
             'type' => $model->type,
             'size' => $model->size,
-            'delete_url' => 'files/delete',
-            'delete_type' => 'DELETE',
+            'deleteUrl' => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
+            'deleteType' => 'POST',
         ];
         
         return $response;
         
     }
+    
+    
+    
 
     /**
      * Displays a single Files model.
@@ -188,9 +214,41 @@ class FilesController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
+        Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        
+        error_log(print_r($_REQUEST,true));
+        
+        $model = $this->findModel($id);
+        
+        $awsConfig = $this->module->aws;
+        
+        $files = [
+            ['Key' => $model->url],
+            /*['Key' => $model->thumbnail_url],*/
+        ];
+                
+        if($awsConfig['enable']){
+        
+            $this->deleteAws($files);
+            
+        }else{
+            
+            foreach($files as $f){
+                
+                unlink($f);
+                
+            }
+            
+        }
+        
+        $model->delete();
+        
+        $result = [
+            'success' => 'true',
+        ];
+        
+        return $result;
     }
 
     /**
@@ -211,8 +269,12 @@ class FilesController extends Controller
     
     
     
-    protected function createThumbnails($file)
+    protected function createThumbnails($file,$name = null)
     {
+        
+        if(is_null($name)){
+            $name = $file->name;
+        }
         
         $awsConfig = $this->module->aws;
         
@@ -220,20 +282,38 @@ class FilesController extends Controller
         
         $path = $this->module->path;
         
-        error_log(print_r($file,true));
+        if($awsConfig['enable']){
+            $path = $awsConfig['url'].$path;
+        }
         
         foreach($thumbnails as $tn){
             
-            $thumb = Image::thumbnail($path.$file->name, $tn[0], $tn[1]);
+            $thumb = Image::thumbnail($path.$name, $tn[0], $tn[1], \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET);
             
             //Upload file
             if($awsConfig['enable']){
                 
-                $this->uploadAws($file,true);
+                if (!file_exists('temp')) {
+                    mkdir('temp', 0777, true);
+                }
+                
+                $thumb->save('temp/'.$name);
+                
+                $fc = new \stdClass();
+                $fc->tempName = 'temp/'.$name;
+                $fc->type = mime_content_type($file->tempName);
+                
+                $this->uploadAws($fc,$name,true);
+                
+                unlink($fc->tempName);
                 
             }else{
                 
-                $thumb->saveAs($path.'thumbnails/'.$file->name);
+                if (!file_exists($path.'thumbnails')) {
+                    mkdir($path.'thumbnails', 0777, true);
+                }
+                
+                $thumb->save($path.'thumbnails/'.$name);
                 
             }
             
@@ -271,17 +351,19 @@ class FilesController extends Controller
     
     
     
-    protected function uploadAws($file,$thumb = false,$path = null){
+    protected function uploadAws($file,$name = null,$thumb = false,$path = null){
         
         if(is_null($path)){
             $path = $this->module->path;
         }
         
+        if(is_null($name)){
+            $name = $file->name;
+        }
+        
         if($thumb){
             $path = $path.'thumbnails/';
         }
-        
-        error_log($path);
         
         $awsConfig = $this->module->aws;
         
@@ -290,9 +372,28 @@ class FilesController extends Controller
         $aws->get('S3');
         
         $aws->putObject([
-            'Key' => $path.$file->name,
+            'Key' => $path.$name,
             'Bucket' => $awsConfig['bucket'],
             'SourceFile' => $file->tempName,
+            'ContentType' => $file->type,
+        ]);
+        
+    }
+    
+    
+    
+    
+    protected function deleteAws($files){
+        
+        $awsConfig = $this->module->aws;
+        
+        $aws = $this->awsInit();
+        
+        $aws->get('S3');
+        
+        $aws->deleteObjects([
+            'Bucket' => $awsConfig['bucket'],
+            'key' => $files[0],
         ]);
         
     }

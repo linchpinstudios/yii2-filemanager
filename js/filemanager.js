@@ -4,6 +4,4 @@
 
 $(function() {
     
-    $('#filemanager-upload').modal();
-    
 });

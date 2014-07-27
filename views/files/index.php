@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use dosamigos\fileupload\FileUploadUI;
+use yii\widgets\LinkPager;
+use yii\widgets\ActiveForm;
 
 
 /* @var $this yii\web\View */
@@ -11,6 +13,15 @@ use dosamigos\fileupload\FileUploadUI;
 
 $this->title = 'Files';
 $this->params['breadcrumbs'][] = $this->title;
+
+$awsConfig = $this->context->module->aws;
+
+if($awsConfig['enable']){
+    $path = $awsConfig['url'];
+}else{
+    $path = '';
+}
+
 ?>
 
 <div class="filemanager-default-index">
@@ -21,81 +32,43 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']),['files/filemodal'],['data-toggle' => 'modal', 'data-target' => '#filemanagerUpload', 'class' => 'btn btn-default navbar-btn disabled',]); ?>
                 <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']),['files/filemodal'],['class' => 'btn btn-default navbar-btn', 'data-toggle' => 'modal', 'data-target' => '#filemanagerUpload']); ?>
             </div>
-            <form class="navbar-form navbar-right" role="search">
+            
+            <?php
+            $form = ActiveForm::begin([
+                'id' => 'file-search-form',
+                'method' => 'get',
+                'options' => ['class' => 'navbar-form navbar-right'],
+            ]);
+                echo Html::beginTag('div',['class' => 'form-group']);
+                    echo $form->field($searchModel, 'title')->textInput(['class' => 'form-control', 'placeholder' => 'Search']);
+                echo Html::endTag('div');
+                    echo Html::submitButton('<i class="glyphicon glyphicon-search"></i>', ['class' => 'btn btn-primary']);
+            ActiveForm::end();
+            ?>
+            
+            <!--<form class="navbar-form navbar-right" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
-            </form>
+            </form> -->
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
             <div class="display-images">
                 <div class="row">
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
-                  <div class="col-xs-6 col-md-3">
-                    <a href="#" class="thumbnail">
-                      <img src="http://themes.goodlayers.com/modernize/wp-content/uploads/2012/01/Fotolia_21995387_Subscription_Monthly_XXL-390x250.jpg" alt="...">
-                    </a>
-                  </div>
+                    <?php
+                        
+                        $models = $dataProvider->getModels();
+                        
+                        foreach($models as $m){
+                            
+                            echo '<div class="col-xs-6 col-md-3">';
+                                echo Html::a('<img src="'.$path.$m->thumbnail_url.'" alt="..." style="height:'.$this->context->module->thumbnails[0][1].'px;">','#',['class'=>'thumbnail']);
+                            echo '</div>';
+                            
+                        }
+                    ?>
                 </div>
             </div>
             <div class="upload-images">
@@ -111,15 +84,13 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         </div>
         <div class="panel-footer">
-            <ul class="pagination" style="margin:0;">
-                <li><a href="#">&laquo;</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-            </ul>
+            <?php
+                
+                echo linkPager::widget([
+                    'pagination'=>$dataProvider->pagination,
+                ]);
+            
+            ?>
         </div>
     </div>
     

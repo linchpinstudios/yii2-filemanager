@@ -1,15 +1,8 @@
 
-.filemanager-default-index{
-    
-    .thumbnail{
-        display: block;
-        width: 100%;
-        height: 50px;
-        background-position: center center;
-        background-size: cover;
-    }
-    
-    .upload-images{
-        display: none;
-    }
+.thumbnails{
+    height: auto;
+}
+
+.filemanager-default-index .upload-images{
+    display: none;
 }

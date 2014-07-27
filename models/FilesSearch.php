@@ -12,6 +12,7 @@ use linchpinstudios\filemanager\models\Files;
  */
 class FilesSearch extends Files
 {
+
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class FilesSearch extends Files
     {
         return [
             [['id', 'user_id', 'width', 'height'], 'integer'],
-            [['url', 'file_name', 'name', 'type', 'title', 'size', 'date', 'date_gmt', 'update', 'update_gmt'], 'safe'],
+            [['url', 'file_name', 'type', 'title', 'size', 'date', 'date_gmt', 'update', 'update_gmt'], 'safe'],
         ];
     }
 
@@ -54,7 +55,6 @@ class FilesSearch extends Files
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
-            'width' => $this->width,
             'height' => $this->height,
             'date' => $this->date,
             'date_gmt' => $this->date_gmt,
@@ -64,9 +64,8 @@ class FilesSearch extends Files
 
         $query->andFilterWhere(['like', 'url', $this->url])
             ->andFilterWhere(['like', 'file_name', $this->file_name])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'title', $this->title])
+            ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'size', $this->size]);
 
         return $dataProvider;
