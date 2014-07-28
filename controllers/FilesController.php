@@ -62,13 +62,37 @@ class FilesController extends Controller
         $searchModel = new FilesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model = new Files();
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'model' => $model,
         ]);
     }
+
+    /**
+     * Lists all Files models.
+     * @return mixed
+     */
+    public function actionTinymce()
+    {
+    
+        $this->layout = 'tinymce';
+
+        FilemanagerAssets::register($this->view);
+        
+        $searchModel = new FilesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new Files();
+        
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+        ]);
+    }
+    
+    
     
     /**
      * actionFilemodal function.
@@ -83,6 +107,26 @@ class FilesController extends Controller
         
         return $this->render('fileModal',['model' => $model]);
     }
+    
+    
+    public function actionGetimage($id){
+        
+        Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        
+        $model = $this->findModel($id);
+        
+        $awsConfig = $this->module->aws;
+        
+        if($awsConfig['enable']){
+            $model->url = $awsConfig['url'].$model->url;
+        }else{
+            $model->url = $model->url;
+        }
+        
+        return $model;
+    }
+    
     
     
     /**
@@ -216,8 +260,6 @@ class FilesController extends Controller
     {
         Yii::$app->response->getHeaders()->set('Vary', 'Accept');
         Yii::$app->response->format = Response::FORMAT_JSON;
-        
-        error_log(print_r($_REQUEST,true));
         
         $model = $this->findModel($id);
         

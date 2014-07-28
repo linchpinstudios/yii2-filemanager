@@ -3,6 +3,10 @@
     height: auto;
 }
 
-.filemanager-default-index .upload-images{
+#filemanagerUpload{
     display: none;
+}
+
+.image-thumbnail.selected a{
+    background: #0072c6;
 }

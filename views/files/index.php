@@ -29,8 +29,8 @@ if($awsConfig['enable']){
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="pull-left">
-                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']),['files/filemodal'],['data-toggle' => 'modal', 'data-target' => '#filemanagerUpload', 'class' => 'btn btn-default navbar-btn disabled',]); ?>
-                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']),['files/filemodal'],['class' => 'btn btn-default navbar-btn', 'data-toggle' => 'modal', 'data-target' => '#filemanagerUpload']); ?>
+                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']), ['#'], ['data-toggle' => 'modal', 'class' => 'btn btn-primary navbar-btn disabled', 'id' => 'fileGridBtn']); ?>
+                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']), ['#'], ['class' => 'btn btn-success navbar-btn', 'data-toggle' => 'modal', 'id' => 'fileUploadBtn']); ?>
             </div>
             
             <?php
@@ -55,7 +55,7 @@ if($awsConfig['enable']){
             <div class="clearfix"></div>
         </div>
         <div class="panel-body">
-            <div class="display-images">
+            <div class="display-images" id="fileGridManager">
                 <div class="row">
                     <?php
                         
@@ -63,15 +63,15 @@ if($awsConfig['enable']){
                         
                         foreach($models as $m){
                             
-                            echo '<div class="col-xs-6 col-md-3">';
-                                echo Html::a('<img src="'.$path.$m->thumbnail_url.'" alt="..." style="height:'.$this->context->module->thumbnails[0][1].'px;">','#',['class'=>'thumbnail']);
+                            echo '<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail" data-id="'.$m->id.'">';
+                                echo Html::a('<img src="'.$path.$m->thumbnail_url.'" style="height:'.$this->context->module->thumbnails[0][1].'px;">','#',['class'=>'thumbnail']);
                             echo '</div>';
                             
                         }
                     ?>
                 </div>
             </div>
-            <div class="upload-images">
+            <div class="upload-images" id="filemanagerUpload">
                 <?= FileUploadUI::widget([
                     'model' => $model,
                     'attribute' => 'file_name',
@@ -83,7 +83,7 @@ if($awsConfig['enable']){
                 ]);?>
             </div>
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer" id="fileGridFooter">
             <?php
                 
                 echo linkPager::widget([
@@ -95,3 +95,10 @@ if($awsConfig['enable']){
     </div>
     
 </div>
+
+
+<script>
+    
+    
+    
+</script>
