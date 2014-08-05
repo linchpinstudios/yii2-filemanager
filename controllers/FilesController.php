@@ -8,10 +8,10 @@ use linchpinstudios\filemanager\models\FilesSearch;
 use yii\base\InvalidConfigException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 use yii\web\HttpException;
 use yii\web\Response;
+use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 use Aws\S3\S3Client;
 use yii\imagine\Image;
 use linchpinstudios\filemanager\assets\FilemanagerAssets;
@@ -381,10 +381,10 @@ class FilesController extends Controller
             throw new InvalidConfigException('Bucket cannot be empty!');
         }
         
-        $config = array(
+        $config = [
             'key'    => $awsConfig['key'],
             'secret' => $awsConfig['secret'],
-        );
+        ];
         $aws = S3Client::factory($config);
         
         return $aws;
