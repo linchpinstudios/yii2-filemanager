@@ -4,7 +4,7 @@ namespace linchpinstudios\filemanager\models;
 
 use Yii;
 use common\models\User;
-use yii\behaviors\TimeStampBehavior;
+use yii\behaviors\TimestampBehavior;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
