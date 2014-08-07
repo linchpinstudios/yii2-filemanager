@@ -36,6 +36,20 @@ class FilesController extends Controller
         'text/plain'        => '.txt',
         'text/xml'          => '.xml',
     ];
+
+    private $extentionMap = [
+        'pdf'   => 'application/pdf',
+        'zip'   => 'application/zip',
+        'gif'   => 'image/gif',
+        'jpg'   => 'image/jpeg',
+        'jpeg'  => 'image/jpeg',
+        'png'   => 'image/png',
+        'css'   => 'text/css',
+        'html'  => 'text/html',
+        'js'    => 'text/javascript',
+        'txt'   => 'text/plain',
+        'xml'   => 'text/xml',
+    ];
     
     public function behaviors()
     {
@@ -185,13 +199,13 @@ class FilesController extends Controller
         $model->save();
         
         $response['files'][] = [
-            'url' => $url.$model->url,
-            'thumbnailUrl' => $url.$model->thumbnail_url,
-            'name' => $model->title,
-            'type' => $model->type,
-            'size' => $model->size,
-            'deleteUrl' => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
-            'deleteType' => 'POST',
+            'url'           => $url.$model->url,
+            'thumbnailUrl'  => $url.$model->thumbnail_url,
+            'name'          => $model->title,
+            'type'          => $model->type,
+            'size'          => $model->size,
+            'deleteUrl'     => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
+            'deleteType'    => 'POST',
         ];
         
         return $response;
@@ -341,9 +355,11 @@ class FilesController extends Controller
                 
                 $thumb->save('temp/'.$name);
                 
-                $fc = new \stdClass();
-                $fc->tempName = 'temp/'.$name;
-                $fc->type = mime_content_type($file->tempName);
+                $fileInfo = pathinfo($file->tempName);
+                
+                $fc             = new \stdClass();
+                $fc->tempName   = 'temp/'.$name;
+                $fc->type       = $extentionMap[$fileInfo['extension']];
                 
                 $this->uploadAws($fc,$name,true);
                 
