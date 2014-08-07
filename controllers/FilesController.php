@@ -355,11 +355,11 @@ class FilesController extends Controller
                 
                 $thumb->save('temp/'.$name);
                 
-                $fileInfo = pathinfo($file->tempName);
+                $fileInfo = pathinfo($file);
                 
                 $fc             = new \stdClass();
                 $fc->tempName   = 'temp/'.$name;
-                $fc->type       = $extentionMap[$fileInfo['extension']];
+                $fc->type       = $this->extentionMap[$fileInfo['extension']];
                 
                 $this->uploadAws($fc,$name,true);
                 
