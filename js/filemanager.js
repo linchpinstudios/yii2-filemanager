@@ -71,20 +71,22 @@ ccm_editorSetupImagePicker = function() {
     function setImage(imageId){
         var ed = top.tinymce;
         var html = '';
-        _csrf:yii.getCsrfToken()
         
-        var formData = {id:imageId};
-        
-        $.ajax({
-            url: "/index.php?r=filemanager%2Ffiles%2Fgetimage&id="+imageId,
-            type: "POST",
-            data: formData,
-            success: function (data) {
-                console.log(data);
-                html = '<img src="'+data.url+'" alt="'+data.title+'">';
-        
-        		ed.activeEditor.insertContent(html);
-        		ed.activeEditor.windowManager.close();
-            }
-        });
+        if(typeof ed != 'undefined'){
+            _csrf:yii.getCsrfToken()
+            
+            var formData = {id:imageId};
+            
+            $.ajax({
+                url: "/index.php?r=filemanager%2Ffiles%2Fgetimage&id="+imageId,
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    html = '<img src="'+data.url+'" alt="'+data.title+'">';
+            
+            		ed.activeEditor.insertContent(html);
+            		ed.activeEditor.windowManager.close();
+                }
+            });
+        }
     }
