@@ -2,15 +2,21 @@
 
 namespace linchpinstudios\filemanager;
 
+/**
+ * Module class.
+ */
 class Module extends \yii\base\Module
 {
+    
     public $controllerNamespace = 'linchpinstudios\filemanager\controllers';
     
     public $thumbnails = [[100,100]];
     
-    public $path = 'files/';
+    public $path = 'images/uploads/';
     
-    public $thumbPath = '@web/files/thumb/';
+    public $thumbPath = 'images/uploads/thumb/';
+    
+    public $url = '/';
     
     public $aws = [
         'enable' => false,

@@ -157,6 +157,7 @@ class FilesController extends Controller
         $model = new Files();
         
         $path = $this->module->path;
+        $url = $this->module->url;
         $awsConfig = $this->module->aws;
         $thumbnails = $this->module->thumbnails;
         
@@ -166,17 +167,9 @@ class FilesController extends Controller
         
         //Upload file
             if($awsConfig['enable']){
-                
                 $this->uploadAws($file,$name);
-                
-                $url = $awsConfig['url'];
-                
             }else{
-                
                 $file->saveAs($path.$name);
-                
-                $url = '';
-                
             }
         
         //Create Thumbnails
@@ -222,6 +215,7 @@ class FilesController extends Controller
      */
     public function actionView($id)
     {
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -306,6 +300,24 @@ class FilesController extends Controller
         
         return $result;
     }
+    
+    
+    
+    
+    
+    public function actionProperties()
+    {
+    
+        
+        return $this->renderPartial('_properties');
+    }
+    
+    
+    
+    
+    
+    
+    
 
     /**
      * Finds the Files model based on its primary key value.

@@ -22,6 +22,7 @@ class FilemanagerAssets extends AssetBundle
         'css/filemanager.css',
     ];
     public $js = [
+        'js/context.js',
         'js/filemanager.js',
     ];
     public $depends = [

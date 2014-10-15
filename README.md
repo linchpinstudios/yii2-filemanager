@@ -1,9 +1,10 @@
 Yii2 File Manager
 =================
-A file manager for Yii2. Allow you to dynamically manager images and files from any location
+A file manager for Yii2. Allow you to dynamically manager images and files from any location. Also TinyMCE plugin included.
+
 
 Installation
-------------
+===============
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
@@ -22,22 +23,46 @@ or add
 to the require section of your `composer.json` file.
 
 
-Usage
------
 
-Once the extension is installed, simply use it in your code by  :
+Configure
+===============
 
-```php
-<?= \linchpinstudios\filemanager\AutoloadExample::widget(); ?>```
+Add the module to the main configuration.
 
-
-
-```php
+```
 <?php
-    ......
+return [
+    //...
     'modules' => [
+        //...
         'filemanager' => [
-            'class' => 'linchpinstudios\filemanager\Module',
+            'class'         => 'linchpinstudios\filemanager\Module',
+            'thumbnails'    => [[100,100]],                                              // Optional: array
+            'path'          => '/images/uploads/',                                       // Default relative to your web directory or AWS
+            'thumbPath'     => '/images/uploads/thumb/',                                 // Default relative to your web directory or AWS
+            'aws'           => [
+                'enable'        => true,
+                'key'           => 'YOURAWS_KEY',
+                'secret'        => 'YOURAWS_SECRET',
+                'bucket'        => 'your-bucket',
+                'url'           => 'http://your-s3-cloudfront-url.com/',                 // either s3 buket URL or CloudFront (can be changed)
+            ],
         ],
+        //...
     ],
-    ......```
+?>
+```
+
+
+
+Usage
+===============
+
+Once the extension is installed, you can access the Module by navigating to http://yourdomain.com/index.php?r=filemanager
+
+
+
+Notes
+===============
+
+Widget and other items still in development.

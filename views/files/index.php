@@ -1,10 +1,10 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
 use dosamigos\fileupload\FileUploadUI;
 use yii\widgets\LinkPager;
 use yii\widgets\ActiveForm;
+use linchpinstudios\filemanager\helpers\Html;
 
 
 /* @var $this yii\web\View */
@@ -64,7 +64,7 @@ if($awsConfig['enable']){
                         foreach($models as $m){
                             
                             echo '<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail" data-id="'.$m->id.'">';
-                                echo Html::a('<img src="'.$path.$m->thumbnail_url.'" style="height:'.$this->context->module->thumbnails[0][1].'px;">','#',['class'=>'thumbnail']);
+                                echo Html::a('<img src="'.$path.$m->thumbnail_url.'" style="height:'.$this->context->module->thumbnails[0][1].'px;">',Html::FileOutput($m->id,[],true),['class'=>'thumbnail']);
                             echo '</div>';
                             
                         }
@@ -102,3 +102,17 @@ if($awsConfig['enable']){
     
     
 </script>
+
+
+
+<div class="modal fade" id="editProperties" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body"></div>
+            
+        </div>
+    </div>
+</div>
+
+

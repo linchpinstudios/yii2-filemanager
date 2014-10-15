@@ -31,13 +31,9 @@ use linchpinstudios\filemanager\models\Files;
         
         $awsConfig = \Yii::$app->getModule('filemanager')->aws;
         
-        $path = \Yii::$app->getModule('filemanager')->path;
+        $url = \Yii::$app->getModule('filemanager')->url;
         
-        if($awsConfig['enable']){
-            $url = $awsConfig['url'];
-        }else{
-            $url = '';
-        }
+        $path = \Yii::$app->getModule('filemanager')->path;
         
         if($id == 0){
             throw new \Exception('Please set ID');

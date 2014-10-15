@@ -4,6 +4,44 @@
 
 $(function() {
     
+    context.init({
+        fadespeed: 100,
+        above: 'auto',
+        preventDoubleContext: true,
+        compress: false,
+    });
+    
+    context.attach('.image-thumbnail .thumbnail',[
+        {
+            text: 'View',
+            action: function(e){
+                alert(this.href);
+                window.open($(this).attr('href'),'imageWindow');
+            },
+        },
+        {
+            text: 'Download',
+        },
+        /*{
+            text: 'Edit',
+        },*/
+        {
+            text: 'Properties',
+            action: function(e){
+                e.preventDefault();
+                $('#editProperties').modal({
+                    remote : '/index.php?r=filemanager/files/properties',
+                });
+            },
+        },
+        {
+            divider: true,
+        },
+        {
+            text: 'Delete',
+        },
+    ]);
+    
     $('#fileUploadBtn').click(function(e){
        
        e.preventDefault();
@@ -38,6 +76,10 @@ $(function() {
                 
         setImage($(this).attr('data-id'));
         
+    });
+    
+    $('.image-thumbnail a').click(function(e){
+        e.preventDefault();
     });
     
 });
