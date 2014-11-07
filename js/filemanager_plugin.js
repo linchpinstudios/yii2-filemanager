@@ -11,7 +11,9 @@
     
     
 });
-//'/index.php?r=filemanager/files/tinymce'
+
+
+
 
 tinymce.PluginManager.add('filemanager', function(editor, url) {
 	
@@ -51,10 +53,3 @@ tinymce.PluginManager.add('filemanager', function(editor, url) {
 		onclick: fileman
 	});
 });
-
-
-
-/*
-				tinymce.activeEditor.insertContent(event.data.html);
-				tinymce.activeEditor.windowManager.close();
-*/

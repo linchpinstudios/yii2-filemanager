@@ -65,17 +65,26 @@ class FilesController extends Controller
         ];
     }
     
+    
+    
+    
+    
+    /**
+     * beforeAction function.
+     * 
+     * @access public
+     * @param mixed $action
+     * @return void
+     */
     public function beforeAction($action) {
         
         $result = parent::beforeAction($action);
         
         $options = [
-    	   'debug'              => false,
-           'tinymce'            => \Yii::$app->urlManager->createUrl('/filemanager/files/tinymce'),
+           'tinymce'             => \Yii::$app->urlManager->createUrl('/filemanager/files/tinymce'),
+           'properties'          => \Yii::$app->urlManager->createUrl('/filemanager/files/properties'),
         ];
-        
-        Yii::$app->view->registerJs("filemanager.init(".json_encode($options).");", View::POS_END, 'my-options');
-        
+        $this->getView()->registerJs("filemanager.init(".json_encode($options).");", \yii\web\View::POS_END, 'my-options');
         
         return $result;
     }
@@ -184,9 +193,9 @@ class FilesController extends Controller
         
         $model = new Files();
         
-        $path = $this->module->path;
-        $url = $this->module->url;
-        $awsConfig = $this->module->aws;
+        $path       = $this->module->path;
+        $url        = $this->module->url;
+        $awsConfig  = $this->module->aws;
         $thumbnails = $this->module->thumbnails;
         
         $file = UploadedFile::getInstance($model,'file_name');
@@ -206,30 +215,37 @@ class FilesController extends Controller
             }
         
         
-        $model->user_id = 0;
-        $model->url = $path.$name;
-        $model->thumbnail_url = $path.'thumbnails/'.$name;
-        $model->file_name = $name;
-        $model->title = $file->name;
-        $model->type = $file->type;
-        $model->title = $file->name;
-        $model->size = $file->size;
-        /*$model->width = $size[0];
-        $model->height = $size[1];*/
+        $model->user_id         = 0;
+        $model->url             = $path.$name;
+        $model->thumbnail_url   = $path.'thumbnails/'.$name;
+        $model->file_name       = $name;
+        $model->title           = $file->name;
+        $model->type            = $file->type;
+        $model->title           = $file->name;
+        $model->size            = $file->size;
+        /*$model->width         = $size[0];
+        $model->height          = $size[1];*/
         
-        $model->save();
+        if($model->save()){
         
-        $response['files'][] = [
-            'url'           => $url.$model->url,
-            'thumbnailUrl'  => $url.$model->thumbnail_url,
-            'name'          => $model->title,
-            'type'          => $model->type,
-            'size'          => $model->size,
-            'deleteUrl'     => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
-            'deleteType'    => 'POST',
-        ];
-        
-        return $response;
+            $response['files'][] = [
+                'url'           => $url.$model->url,
+                'thumbnailUrl'  => $url.$model->thumbnail_url,
+                'name'          => $model->title,
+                'type'          => $model->type,
+                'size'          => $model->size,
+                'deleteUrl'     => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
+                'deleteType'    => 'POST',
+            ];
+            
+            return $response;
+            
+        }else{
+            
+            error_log(print_r($model->getErrors(),true));
+            
+            return false;
+        }
         
     }
     

@@ -119,7 +119,7 @@ ccm_editorSetupImagePicker = function() {
         });
         mceEd.dom.setAttribs("__mce_tmp", args);
         mceEd.dom.setAttrib("__mce_tmp", "id", "");
-        mceEd.undoManager.add()
+        mceEd.undoManager.f()
     };
     return false
 };
