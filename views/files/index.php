@@ -73,7 +73,7 @@ if($awsConfig['enable']){
             </div>
             <div class="upload-images" id="filemanagerUpload">
                 <?= FileUploadUI::widget([
-                    /*'model' => $model,*/
+                    'model' => $model,
                     'attribute' => 'file_name',
                     'url' => ['files/upload'], // your url, this is just for demo purposes,
                     'options' => [
