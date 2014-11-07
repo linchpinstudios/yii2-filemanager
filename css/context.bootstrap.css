@@ -5,6 +5,7 @@
 
 .dropdown-context .nav-header{
 	cursor:default;
+	z-index: 1100;
 	}
 .dropdown-context:before, .dropdown-context-up:before {
 	position: absolute;

@@ -62,6 +62,40 @@ Once the extension is installed, you can access the Module by navigating to http
 
 
 
+
+Tiny MCE
+===============
+
+To use the File Manager with Tiny MCE you need to register the scripts with Yii.
+
+Add Use to head of controller.
+```
+use linchpinstudios\filemanager\assets\FilemanagerTinyAssets;
+```
+
+Add Register to controller action.
+```
+FilemanagerTinyAssets::register($this->view);
+```
+
+Then add the 'filemanager' plugin to the Tiny MCE plugin. (Example using 2amigos Tiny MCE Package [found HERE](https://github.com/2amigos/yii2-tinymce-widget))
+
+```
+<?= $form->field($model, 'text')->widget(TinyMce::className(), [
+    'options' => ['rows' => 6],
+    'language' => 'en',
+    'clientOptions' => [
+        'plugins' => [
+            "advlist autolink lists link charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table contextmenu paste filemanager"
+        ],
+        'toolbar' => "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | filemanager"
+    ]
+]);?>
+```
+
+
 Notes
 ===============
 
