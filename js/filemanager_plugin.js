@@ -10,7 +10,7 @@
     }
     
     
-});
+}( window.filemanager = window.filemanager || {}, jQuery ));
 
 
 
