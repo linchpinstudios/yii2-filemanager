@@ -1,10 +1,24 @@
 
+(function( filemanagertiny, $, undefined ) {
+    "use strict";
+    
+    var _settings;
+    
+    // public method
+    filemanagertiny.init = function(settings) {
+        _settings = $.extend({}, settings);
+    }
+    
+    
+});
+//'/index.php?r=filemanager/files/tinymce'
+
 tinymce.PluginManager.add('filemanager', function(editor, url) {
 	
 	function fileman() {
 		editor.windowManager.open({
 			title: 'Upload an image',
-			file : '/index.php?r=filemanager/files/tinymce',
+			file : filemanagertiny._settings.tinymce,
 			width : 960,
 			height: 600,
 			resizable : true,

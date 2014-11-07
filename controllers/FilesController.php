@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\HttpException;
 use yii\web\Response;
+use yii\web\view;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use Aws\S3\S3Client;
@@ -63,6 +64,24 @@ class FilesController extends Controller
             ],
         ];
     }
+    
+    public function beforeAction($action) {
+        
+        $result = parent::beforeAction($action);
+        
+        $options = [
+    	   'debug'              => false,
+           'tinymce'            => \Yii::$app->urlManager->createUrl('/filemanager/files/tinymce'),
+        ];
+        
+        Yii::$app->view->registerJs("filemanager.init(".json_encode($options).");", View::POS_END, 'my-options');
+        
+        
+        return $result;
+    }
+    
+    
+    
 
     /**
      * Lists all Files models.
@@ -115,11 +134,20 @@ class FilesController extends Controller
      * @return void
      */
     public function actionFilemodal(){
-        $this->layout = 'modal';
+    
+        $this->layout = 'tinymce';
+
+        FilemanagerAssets::register($this->view);
         
-        $model = new Files;
+        $searchModel = new FilesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model = new Files();
         
-        return $this->render('fileModal',['model' => $model]);
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+        ]);
     }
     
     

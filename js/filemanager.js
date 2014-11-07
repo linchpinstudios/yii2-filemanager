@@ -1,4 +1,17 @@
 
+(function( filemanager, $, undefined ) {
+    "use strict";
+    
+    var _settings;
+    
+    
+    // public method
+    filemanager.init = function(settings) {
+        _settings = $.extend({}, settings);
+    }
+    
+    
+}
 
 
 
@@ -72,9 +85,12 @@ $(function() {
     
     $('.image-thumbnail').click(function(e){
         
-        $(this).addClass('selected');
-                
-        setImage($(this).attr('data-id'));
+        if($(this).hasClass('selected')){
+            $(this).removeClass('selected');
+        }else{
+            $(this).addClass('selected');
+            setImage($(this).attr('data-id'));
+        }
         
     });
     

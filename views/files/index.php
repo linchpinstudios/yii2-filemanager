@@ -76,9 +76,12 @@ if($awsConfig['enable']){
                     'model' => $model,
                     'attribute' => 'file_name',
                     'url' => ['files/upload'], // your url, this is just for demo purposes,
-                    'options' => ['accept' => 'image/*'],
+                    'options' => [
+                        'accept' => 'image/*',
+                        'done'   => 'filemanager',
+                    ],
                     'clientOptions' => [
-                        'maxFileSize' => 2000000
+                        'maxFileSize' => 2000000,
                     ]
                 ]);?>
             </div>
