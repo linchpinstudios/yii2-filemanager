@@ -95,8 +95,8 @@ class Files extends \yii\db\ActiveRecord
         return [
             [['user_id', 'size', 'width', 'height'], 'integer'],
             [['date', 'date_gmt', 'update', 'update_gmt'], 'safe'],
-            [['url', 'thumbnail_url', 'file_name'], 'string', 'max' => 555],
-            [['type', 'title'], 'string', 'max' => 45]
+            [['url', 'thumbnail_url', 'file_name', 'title'], 'string', 'max' => 555],
+            [['type'], 'string', 'max' => 45]
         ];
     }
 
