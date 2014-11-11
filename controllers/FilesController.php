@@ -210,7 +210,7 @@ class FilesController extends Controller
             }
         
         //Create Thumbnails
-            if(!empty($thumbnails)){
+            if(!empty($thumbnails) && ($file->type == 'image/gif' || $file->type == 'image/jpeg' || $file->type == 'image/png')){
                 $this->createThumbnails($file,$name); 
             }
         
