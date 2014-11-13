@@ -29,8 +29,8 @@ if($awsConfig['enable']){
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="pull-left">
-                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']), ['#'], ['data-toggle' => 'modal', 'class' => 'btn btn-primary navbar-btn disabled', 'id' => 'fileGridBtn']); ?>
-                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']), ['#'], ['class' => 'btn btn-success navbar-btn', 'data-toggle' => 'modal', 'id' => 'fileUploadBtn']); ?>
+                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']), '', ['data-toggle' => 'modal', 'class' => 'btn btn-primary navbar-btn disabled', 'id' => 'fileGridBtn']); ?>
+                <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']), '', ['class' => 'btn btn-success navbar-btn', 'data-toggle' => 'modal', 'id' => 'fileUploadBtn']); ?>
             </div>
             
             <?php
