@@ -19,7 +19,7 @@ $awsConfig = $this->context->module->aws;
 if($awsConfig['enable']){
     $path = $awsConfig['url'];
 }else{
-    $path = '';
+    $path = '/';
 }
 
 ?>

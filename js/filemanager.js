@@ -11,6 +11,14 @@
     }
     
     
+    
+    filemanager.getSettings = function() {
+        
+        return _settings;
+        
+    }
+    
+    
 }( window.filemanager = window.filemanager || {}, jQuery ));
 
 
@@ -89,7 +97,11 @@ $(function() {
             $(this).removeClass('selected');
         }else{
             $(this).addClass('selected');
-            setImage($(this).attr('data-id'));
+            
+            
+            if(  typeof window.parent.filemanagertiny.setImage !== 'undefined' && $.isFunction(window.parent.filemanagertiny.setImage )  ){
+                window.parent.filemanagertiny.setImage( $(this).attr('data-id') );
+            }
         }
         
     });
@@ -126,7 +138,7 @@ ccm_editorSetupImagePicker = function() {
     
     
     
-    function setImage(imageId){
+    /*function setImage(imageId){
         var ed = top.tinymce;
         var html = '';
         
@@ -135,8 +147,10 @@ ccm_editorSetupImagePicker = function() {
             
             var formData = {id:imageId};
             
+            console.log(window.filemanagertiny.getSettings);
+            
             $.ajax({
-                url: "/index.php?r=filemanager%2Ffiles%2Fgetimage&id="+imageId,
+                url: filemanagertiny.getSettings().properties,
                 type: "POST",
                 data: formData,
                 success: function (data) {
@@ -147,4 +161,4 @@ ccm_editorSetupImagePicker = function() {
                 }
             });
         }
-    }
+    }*/

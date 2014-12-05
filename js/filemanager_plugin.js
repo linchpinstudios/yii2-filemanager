@@ -1,16 +1,4 @@
 
-(function( filemanagertiny, $, undefined ) {
-    "use strict";
-    
-    var _settings;
-    
-    // public method
-    filemanagertiny.init = function(settings) {
-        _settings = $.extend({}, settings);
-    }
-    
-    
-}( window.filemanager = window.filemanager || {}, jQuery ));
 
 
 
@@ -18,9 +6,10 @@
 tinymce.PluginManager.add('filemanager', function(editor, url) {
 	
 	function fileman() {
+    	
 		editor.windowManager.open({
-			title: 'Upload an image',
-			file : filemanagertiny._settings.tinymce,
+			title: 'Select an image',
+			file : filemanagertiny.getSettings().tinymce,
 			width : 960,
 			height: 600,
 			resizable : true,

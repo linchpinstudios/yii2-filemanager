@@ -22,6 +22,7 @@ class FilemanagerTinyAssets extends AssetBundle
         /*'css/filemanager.css',*/
     ];
     public $js = [
+        'js/filemanagertiny.js',
         'js/filemanager_plugin.js',
     ];
     public $depends = [

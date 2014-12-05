@@ -172,7 +172,7 @@ class FilesController extends Controller
         if($awsConfig['enable']){
             $model->url = $awsConfig['url'].$model->url;
         }else{
-            $model->url = $model->url;
+            $model->url = '/'.$model->url;
         }
         
         return $model;
