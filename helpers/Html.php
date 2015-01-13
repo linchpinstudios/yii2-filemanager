@@ -25,7 +25,7 @@ use yii\helpers\ArrayHelper;
      * run function.
      * 
      * @access public
-     * @return void
+     * @return string
      */
     public static function FileOutput($id = 0,$options = [],$urlOnly = false)
     {
@@ -48,8 +48,10 @@ use yii\helpers\ArrayHelper;
             throw new \Exception('Please select a file');
         }
         
-        if( !empty($file->FileTerms) ) {
-            $terms[$file->FileTerms->type] = $file->FileTerms->value;
+        if( !empty($file->fileTerms) ) {
+            foreach ($file->fileTerms as $v) {
+                $terms[$v->type] = $v->value;
+            }
         }
         
         $options = ArrayHelper::merge( $options, $terms );
@@ -61,6 +63,32 @@ use yii\helpers\ArrayHelper;
         }
         
         return $return;
+    }
+    
+    
+    /**
+     * FileTerms function.
+     * 
+     * @access public
+     * @static
+     * @param int $id (default: 0)
+     * @return array
+     */
+    public static function FileTerms($id = 0)
+    {
+        
+        $file  = Files::findOne($id);
+        
+        $terms = [];
+        
+        if( !empty($file->fileTerms) ) {
+            foreach ($file->fileTerms as $v) {
+                $terms[$v->type] = $v->value;
+            }
+        }
+        
+        return $terms;
+        
     }
     
  }
