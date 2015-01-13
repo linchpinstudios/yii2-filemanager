@@ -10,6 +10,7 @@ namespace linchpinstudios\filemanager\helpers;
 use Yii;
 use yii\web\ErrorHandler;
 use linchpinstudios\filemanager\models\Files;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -29,11 +30,13 @@ use linchpinstudios\filemanager\models\Files;
     public static function FileOutput($id = 0,$options = [],$urlOnly = false)
     {
         
-        $awsConfig = \Yii::$app->getModule('filemanager')->aws;
+        $awsConfig  = \Yii::$app->getModule('filemanager')->aws;
         
-        $url = \Yii::$app->getModule('filemanager')->url;
+        $url        = \Yii::$app->getModule('filemanager')->url;
         
-        $path = \Yii::$app->getModule('filemanager')->path;
+        $path       = \Yii::$app->getModule('filemanager')->path;
+        
+        $terms      = [];
         
         if($id == 0){
             throw new \Exception('Please set ID');
@@ -45,7 +48,11 @@ use linchpinstudios\filemanager\models\Files;
             throw new \Exception('Please select a file');
         }
         
+        if( !empty($file->FileTerms) ) {
+            $terms[$file->FileTerms->type] = $file->FileTerms->value;
+        }
         
+        $options = ArrayHelper::merge( $options, $terms );
         
         if($urlOnly){
             $return = $url.$file->url;
