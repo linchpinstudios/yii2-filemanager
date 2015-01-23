@@ -13,6 +13,7 @@ use yii\web\Response;
 use yii\web\view;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
+use yii\helpers\FileHelper;
 use Aws\S3\S3Client;
 use yii\imagine\Image;
 use linchpinstudios\filemanager\assets\FilemanagerAssets;
@@ -194,6 +195,7 @@ class FilesController extends Controller
         $model = new Files();
         
         $path       = $this->module->path;
+        $directory  = Yii::getAlias( $this->module->directory );
         $url        = $this->module->url;
         $awsConfig  = $this->module->aws;
         $thumbnails = $this->module->thumbnails;
@@ -206,7 +208,12 @@ class FilesController extends Controller
             if($awsConfig['enable']){
                 $this->uploadAws($file,$name);
             }else{
-                $file->saveAs($path.$name);
+                if ( !file_exists( $directory . $path ) ) {
+                    //FileHelper::createDirectory( $directory . $path, 775);
+                    mkdir($directory . $path, 0755, true);
+                }
+                
+                $file->saveAs( $directory . $path . $name);
             }
         
         //Create Thumbnails
@@ -394,6 +401,8 @@ class FilesController extends Controller
         
         $path = $this->module->path;
         
+        $directory  = Yii::getAlias( $this->module->directory );
+        
         if($awsConfig['enable']){
             $path = $awsConfig['url'].$path;
         }
@@ -423,11 +432,12 @@ class FilesController extends Controller
                 
             }else{
                 
-                if (!file_exists($path.'thumbnails')) {
-                    mkdir($path.'thumbnails', 0777, true);
+                if ( !file_exists( $directory . $thumbPath) ) {
+                    mkdir($directory . $thumbPath, 0755, true);
+                    //FileHelper::createDirectory( $directory . $path, 775);
                 }
                 
-                $thumb->save($path.'thumbnails/'.$name);
+                $thumb->save( $directory . $thumbPath . $name);
                 
             }
             

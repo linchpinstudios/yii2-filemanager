@@ -12,6 +12,8 @@ class Module extends \yii\base\Module
     
     public $thumbnails = [[100,100]];
     
+    public $directory = '@webroot/';
+    
     public $path = 'images/uploads/';
     
     public $thumbPath = 'images/uploads/thumb/';
