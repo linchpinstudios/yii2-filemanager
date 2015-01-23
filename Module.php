@@ -21,10 +21,10 @@ class Module extends \yii\base\Module
     public $url = '/';
     
     public $aws = [
-        'enable' => false,
-        'key' => '',
-        'secret' => '',
-    	'bucket' => '',
+        'enable'    => false,
+        'key'       => '',
+        'secret'    => '',
+    	'bucket'    => '',
     ];
     
     public function init()

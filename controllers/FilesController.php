@@ -433,9 +433,7 @@ class FilesController extends Controller
             }else{
                 
                 if ( !file_exists( $directory . $thumbPath) ) {
-                    mkdir($directory . $thumbPath, 0755, true);
-                    //FileHelper::createDirectory( $directory . $path, 775);
-                }
+                    mkdir($directory . $thumbPath, 0755, true);                }
                 
                 $thumb->save( $directory . $thumbPath . $name);
                 

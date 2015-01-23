@@ -40,12 +40,12 @@ return [
             'thumbnails'    => [[100,100]],                                              // Optional: array
             'path'          => '/images/uploads/',                                       // Default relative to your web directory or AWS
             'thumbPath'     => '/images/uploads/thumb/',                                 // Default relative to your web directory or AWS
+            'url'           => '/',                                                      // either s3 buket URL or CloudFront (can be changed)
             'aws'           => [
                 'enable'        => true,
                 'key'           => 'YOURAWS_KEY',
                 'secret'        => 'YOURAWS_SECRET',
                 'bucket'        => 'your-bucket',
-                'url'           => 'http://your-s3-cloudfront-url.com/',                 // either s3 buket URL or CloudFront (can be changed)
             ],
         ],
         //...
