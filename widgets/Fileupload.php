@@ -11,6 +11,7 @@ use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\widgets\InputWidget;
+use linchpinstudios\filemanager\assets\FileUploadAssets;
 /**
  * Use this plugin to unobtrusively add a datetimepicker, datepicker or
  * timepicker dropdown to your forms. It's easy to customize options.
@@ -73,6 +74,11 @@ use yii\widgets\InputWidget;
      */
     protected function registerClientScript()
     {
+
+        $view = $this->getView();
+
+        FileUploadAssets::register( $view );
+
         /*$view = $this->getView();
 
         DateTimePickerAssets::register($view);
@@ -86,13 +92,15 @@ use yii\widgets\InputWidget;
 
 
 
-
+    /**
+     * [generateModal description]
+     * @param [type] $id [description]
+     */
     protected function generateModal($id)
     {
         $html = '<div class="modal fade" id="filePickModal_'.$id.'">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-
                         </div>
                     </div>
                 </div>';
