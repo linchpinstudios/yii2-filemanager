@@ -61,7 +61,7 @@ use linchpinstudios\filemanager\assets\FileUploadAssets;
         } else {
             echo Html::hiddenInput($this->name, $this->value, $this->options);
         }
-        echo Html::tag('div',Html::a('Select Image',['filemanager/files/filemodal'],['class' => 'btn btn-success','data-toggle' => 'modal','data-target' => '#filePickModal_'.$randomId]));
+        echo Html::tag('div',Html::a('Select Image',['/filemanager/files/filemodal'],['class' => 'btn btn-success','data-toggle' => 'modal','data-target' => '#filePickModal_'.$randomId]));
 
         echo $this->generateModal($randomId);
 
@@ -101,6 +101,7 @@ use linchpinstudios\filemanager\assets\FileUploadAssets;
         $html = '<div class="modal fade" id="filePickModal_'.$id.'">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
+                            <div class="modal-body"></div>
                         </div>
                     </div>
                 </div>';
