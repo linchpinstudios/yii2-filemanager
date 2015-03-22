@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model linchpinstudios\filemanager\models\Files */
 
-$this->title = $model->name;
+$this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Files', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'user_id',
             'url:url',
+            'thumbnail_url:url',
             'file_name',
-            'name',
             'type',
             'title',
             'size',

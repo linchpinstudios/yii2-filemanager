@@ -14,6 +14,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'user_id')->textInput() ?>
 
+    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'thumbnail_url')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'file_name')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'size')->textInput() ?>
+
     <?= $form->field($model, 'width')->textInput() ?>
 
     <?= $form->field($model, 'height')->textInput() ?>
@@ -25,18 +37,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'update')->textInput() ?>
 
     <?= $form->field($model, 'update_gmt')->textInput() ?>
-
-    <?= $form->field($model, 'url')->textInput(['maxlength' => 555]) ?>
-
-    <?= $form->field($model, 'file_name')->textInput(['maxlength' => 555]) ?>
-
-    <?= $form->field($model, 'name')->textInput(['maxlength' => 555]) ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => 555]) ?>
-
-    <?= $form->field($model, 'type')->textInput(['maxlength' => 45]) ?>
-
-    <?= $form->field($model, 'size')->textInput(['maxlength' => 45]) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

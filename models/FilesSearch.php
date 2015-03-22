@@ -12,15 +12,14 @@ use linchpinstudios\filemanager\models\Files;
  */
 class FilesSearch extends Files
 {
-
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'width', 'height'], 'integer'],
-            [['url', 'file_name', 'type', 'title', 'size', 'date', 'date_gmt', 'update', 'update_gmt'], 'safe'],
+            [['id', 'user_id', 'size', 'width', 'height'], 'integer'],
+            [['url', 'thumbnail_url', 'file_name', 'type', 'title', 'date', 'date_gmt', 'update', 'update_gmt'], 'safe'],
         ];
     }
 
@@ -48,13 +47,19 @@ class FilesSearch extends Files
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
             'user_id' => $this->user_id,
+            'size' => $this->size,
+            'width' => $this->width,
             'height' => $this->height,
             'date' => $this->date,
             'date_gmt' => $this->date_gmt,
@@ -63,10 +68,10 @@ class FilesSearch extends Files
         ]);
 
         $query->andFilterWhere(['like', 'url', $this->url])
+            ->andFilterWhere(['like', 'thumbnail_url', $this->thumbnail_url])
             ->andFilterWhere(['like', 'file_name', $this->file_name])
-            ->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'type', $this->type])
-            ->andFilterWhere(['like', 'size', $this->size]);
+            ->andFilterWhere(['like', 'title', $this->title]);
 
         return $dataProvider;
     }

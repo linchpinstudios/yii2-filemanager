@@ -1,115 +1,147 @@
 
 (function( filemanager, $, undefined ) {
     "use strict";
-    
+
     var _settings;
-    
-    
+
+
     // public method
     filemanager.init = function(settings) {
+
         _settings = $.extend({}, settings);
+
+        //this.contextSetup();
+
     }
-    
-    
-    
+
+
+
+
+
+
+    /**
+     * Setup context
+     */
+    filemanager.contextSetup = function(){
+
+        context.init({
+            fadespeed: 100,
+            above: 'auto',
+            preventDoubleContext: true,
+            compress: false,
+        });
+
+        context.attach('.image-thumbnail .thumbnail',[
+            {
+                text: 'View',
+                action: function(e){
+                    var id = $(this).attr('href');
+                    alert(id);
+                    window.open($(this).attr('href'),'imageWindow');
+                },
+            },
+            {
+                text: 'Download',
+            },
+            {
+                text: 'Properties',
+                action: function(e){
+                    e.preventDefault();
+                    $('#editProperties').modal({
+                        remote : '/index.php?r=filemanager/files/properties',
+                    });
+                },
+            },
+            {
+                divider: true,
+            },
+            {
+                text: 'Delete',
+                action: function(e){
+                    e.preventDefault();
+                    var id = $(this).attr('data-id');
+                    console.log(id);
+                    filemanager.deleteFile( id );
+                },
+            },
+        ]);
+
+    }
+
+
+
     filemanager.getSettings = function() {
-        
+
         return _settings;
-        
+
     }
-    
-    
+
+
+
+
+
+    filemanager.deleteFile = function( id )
+    {
+
+        if (typeof id !== "undefined" && id !== null) {
+
+            console.log( id );
+
+        }
+
+    }
+
+
 }( window.filemanager = window.filemanager || {}, jQuery ));
 
 
 
 $(function() {
-    
-    context.init({
-        fadespeed: 100,
-        above: 'auto',
-        preventDoubleContext: true,
-        compress: false,
-    });
-    
-    context.attach('.image-thumbnail .thumbnail',[
-        {
-            text: 'View',
-            action: function(e){
-                alert(this.href);
-                window.open($(this).attr('href'),'imageWindow');
-            },
-        },
-        {
-            text: 'Download',
-        },
-        /*{
-            text: 'Edit',
-        },*/
-        {
-            text: 'Properties',
-            action: function(e){
-                e.preventDefault();
-                $('#editProperties').modal({
-                    remote : '/index.php?r=filemanager/files/properties',
-                });
-            },
-        },
-        {
-            divider: true,
-        },
-        {
-            text: 'Delete',
-        },
-    ]);
-    
+
+
     $('#fileUploadBtn').click(function(e){
-       
+
        e.preventDefault();
-       
+
        $(this).addClass('disabled');
-       
+
        $('#fileGridBtn').removeClass('disabled');
-       
+
        $('#fileGridManager,#fileGridFooter').hide();
-       
+
        $('#filemanagerUpload').show();
-        
+
     });
-    
+
     $('#fileGridBtn').click(function(e){
-       
+
        e.preventDefault();
-       
+
        $(this).addClass('disabled');
-       
+
        $('#fileUploadBtn').removeClass('disabled');
-       
+
        $('#filemanagerUpload').hide();
-       
+
        $('#fileGridManager,#fileGridFooter').show();
-        
+
     });
-    
+
     $('.image-thumbnail').click(function(e){
-        
+
         if($(this).hasClass('selected')){
             $(this).removeClass('selected');
         }else{
             $(this).addClass('selected');
-            
-            
+
+
             if(  typeof window.parent.filemanagertiny.setImage !== 'undefined' && $.isFunction(window.parent.filemanagertiny.setImage )  ){
                 window.parent.filemanagertiny.setImage( $(this).attr('data-id') );
             }
         }
-        
+
     });
-    
-    $('.image-thumbnail a').click(function(e){
-        e.preventDefault();
-    });
-    
+
 });
 
 
@@ -135,30 +167,3 @@ ccm_editorSetupImagePicker = function() {
     };
     return false
 };
-    
-    
-    
-    /*function setImage(imageId){
-        var ed = top.tinymce;
-        var html = '';
-        
-        if(typeof ed != 'undefined'){
-            _csrf:yii.getCsrfToken()
-            
-            var formData = {id:imageId};
-            
-            console.log(window.filemanagertiny.getSettings);
-            
-            $.ajax({
-                url: filemanagertiny.getSettings().properties,
-                type: "POST",
-                data: formData,
-                success: function (data) {
-                    html = '<img src="'+data.url+'" alt="'+data.title+'">';
-            
-            		ed.activeEditor.insertContent(html);
-            		ed.activeEditor.windowManager.close();
-                }
-            });
-        }
-    }*/

@@ -5,7 +5,9 @@
 
 
 
-    var _settings;
+    var _settings = {
+        domWrapper: ''
+    };
     var _selected;
     var _multiple = false;
 
@@ -120,6 +122,7 @@
 		});
 
 	}
+
 
 
 

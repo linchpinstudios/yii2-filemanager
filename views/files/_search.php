@@ -21,9 +21,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'url') ?>
 
-    <?= $form->field($model, 'file_name') ?>
+    <?= $form->field($model, 'thumbnail_url') ?>
 
-    <?= $form->field($model, 'name') ?>
+    <?= $form->field($model, 'file_name') ?>
 
     <?php // echo $form->field($model, 'type') ?>
 
