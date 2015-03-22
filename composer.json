@@ -10,11 +10,14 @@
 			"email": "joshhagel@linchpinstudios.com"
 		}
 	],
-      "require": {
-        "aws/aws-sdk-php": "2.*",
-        "2amigos/yii2-file-upload-widget" : "*",
-        "yiisoft/yii2-imagine": "*"
-      },
+	"require-dev": {
+        "phpspec/phpspec": "~2.0"
+    },
+	"require": {
+	"aws/aws-sdk-php": "2.*",
+	"2amigos/yii2-file-upload-widget" : "*",
+	"yiisoft/yii2-imagine": "*"
+	},
 	"autoload": {
 		"psr-4": {
 			"linchpinstudios\\filemanager\\": ""
