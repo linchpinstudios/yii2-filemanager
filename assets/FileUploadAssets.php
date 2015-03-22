@@ -22,9 +22,8 @@ class FileUploadAssets extends AssetBundle
         'css/filemanager.css',
     ];
     public $js = [
-        'js/context.js',
         'js/fileupload.js',
-        'js/jquery.filemanager.js',
+        /*'js/jquery.filemanager.js',*/
     ];
     public $depends = [
         'yii\web\JqueryAsset',
