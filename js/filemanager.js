@@ -136,7 +136,8 @@ $(function() {
 
 
             if(  typeof window.parent.filemanagertiny.setImage !== 'undefined' && $.isFunction(window.parent.filemanagertiny.setImage )  ){
-                window.parent.filemanagertiny.setImage( $(this).attr('data-id') );
+                e.preventDefault();
+                window.parent.filemanagertiny.setImage( $(this).find('.thumbnail').attr('data-id') );
             }
         }
 

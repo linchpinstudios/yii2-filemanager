@@ -92,18 +92,6 @@ class Files extends \yii\db\ActiveRecord
 
 
     /**
-     * [scenarios description]
-     * @return [type] [description]
-     */
-    public function scenarios()
-    {
-        return [
-            'list' => ['id', 'title'],
-        ];
-    }
-
-
-    /**
      * @inheritdoc
      */
     public function rules()
