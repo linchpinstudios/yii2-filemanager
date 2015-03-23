@@ -59,7 +59,7 @@ use linchpinstudios\filemanager\models\Files;
 
         $imageArray = ArrayHelper::map(Files::find()->select(['id', 'title'])->all(), 'id', 'title');
 
-        $selectOptions = array_merge(['' => 'Select a Thumbnail'], $imageArray);
+        $selectOptions = ArrayHelper::merge(['' => 'Select a Thumbnail'], $imageArray);
 
         if ($this->hasModel()) {
             echo Html::activeDropDownList($this->model, $this->attribute, $selectOptions, $this->options);
