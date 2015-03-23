@@ -488,7 +488,7 @@ class FilesController extends Controller
         }
 
         if($thumb){
-            $path = $path.'thumbnails/';
+            $path = $path.$this->module->thumbnails;
         }
 
         $awsConfig = $this->module->aws;
