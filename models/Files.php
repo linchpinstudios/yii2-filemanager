@@ -81,34 +81,6 @@ class Files extends \yii\db\ActiveRecord
     }
 
 
-    public function beforeDelete()
-    {
-        if (parent::beforeDelete()) {
-
-            $awsConfig  = $this->module->aws;
-            $path       = $this->module->path;
-            $thumbPath  = $this->module->thumbPath;
-            $path       = $this->module->path;
-            $directory  = Yii::getAlias( $this->module->directory );
-
-            if($awsConfig['enable']){
-
-                $this->deleteAws( $this->url );
-                $this->deleteAws( $this->thumbnail_url );
-
-            } else {
-
-                unlink( $directory . $this->url );
-                unlink( $directory . $this->thumbnail_url );
-
-            }
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
     /**
      * @inheritdoc
@@ -183,45 +155,4 @@ class Files extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-
-
-
-    protected function deleteAws($files){
-
-        $awsConfig = $this->module->aws;
-
-        $aws = $this->awsInit();
-
-        $aws->get('S3');
-
-        $aws->deleteObjects([
-            'Bucket' => $awsConfig['bucket'],
-            'key' => $files[0],
-        ]);
-
-    }
-
-
-    protected function awsInit(){
-
-        $awsConfig = $this->module->aws;
-
-        if($awsConfig['key'] == ''){
-            throw new InvalidConfigException('Key cannot be empty!');
-        }
-        if($awsConfig['secret'] == ''){
-            throw new InvalidConfigException('Secret cannot be empty!');
-        }
-        if($awsConfig['bucket'] == ''){
-            throw new InvalidConfigException('Bucket cannot be empty!');
-        }
-
-        $config = [
-            'key'    => $awsConfig['key'],
-            'secret' => $awsConfig['secret'],
-        ];
-        $aws = S3Client::factory($config);
-
-        return $aws;
-    }
 }

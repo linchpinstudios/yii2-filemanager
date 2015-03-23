@@ -329,9 +329,10 @@ class FilesController extends Controller
 
         $awsConfig = $this->module->aws;
 
+
         $files = [
             ['Key' => $model->url],
-            /*['Key' => $model->thumbnail_url],*/
+            ['Key' => $model->thumbnail_url],
         ];
 
         if($awsConfig['enable']){
@@ -342,7 +343,9 @@ class FilesController extends Controller
 
             foreach($files as $f){
 
-                unlink($f);
+                if( file_exists( Yii::getAlias( $this->module->directory ) . $f['Key'] ) ){
+                    unlink( Yii::getAlias( $this->module->directory ) . $f['Key']);
+                }
 
             }
 
@@ -350,11 +353,7 @@ class FilesController extends Controller
 
         $model->delete();
 
-        $result = [
-            'success' => 'true',
-        ];
-
-        return $result;
+        $this->redirect(['index']);
     }
 
 
