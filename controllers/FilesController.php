@@ -522,7 +522,7 @@ class FilesController extends Controller
 
         $aws->deleteObjects([
             'Bucket' => $awsConfig['bucket'],
-            'key' => $files[0],
+            'Objects' => $files,
         ]);
 
     }
