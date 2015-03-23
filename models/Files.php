@@ -43,7 +43,7 @@ class Files extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'update',
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'update',
                 ],
-                'value' => function() { 
+                'value' => function() {
                     return date('Y-m-d H:i:s');
                 },
             ],
@@ -53,7 +53,7 @@ class Files extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'update_gmt',
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'update_gmt',
                 ],
-                'value' => function() { 
+                'value' => function() {
                     return gmdate('Y-m-d H:i:s');
                 },
             ],
@@ -63,7 +63,7 @@ class Files extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'date',
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'date',
                 ],
-                'value' => function() { 
+                'value' => function() {
                     return (empty($this->date) ? date('Y-m-d H:i:s') : date('Y-m-d H:i:s',strtotime($this->date)));
                 },
             ],
@@ -73,7 +73,7 @@ class Files extends \yii\db\ActiveRecord
                     ActiveRecord::EVENT_BEFORE_INSERT => 'date_gmt',
                     ActiveRecord::EVENT_BEFORE_UPDATE => 'date_gmt',
                 ],
-                'value' => function() { 
+                'value' => function() {
                     return (empty($this->date) ? gmdate('Y-m-d H:i:s') : gmdate('Y-m-d H:i:s',strtotime($this->date)));
                 },
             ],
@@ -86,6 +86,19 @@ class Files extends \yii\db\ActiveRecord
     {
         return 'files';
     }
+
+
+    /**
+     * [scenarios description]
+     * @return [type] [description]
+     */
+    public function scenarios()
+    {
+        return [
+            'list' => ['id', 'title'],
+        ];
+    }
+
 
     /**
      * @inheritdoc
