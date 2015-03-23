@@ -161,6 +161,10 @@ class FilesController extends Controller
     }
 
 
+    /**
+     * [actionGetimage description]
+     * @param [type] $id [description]
+     */
     public function actionGetimage($id){
 
         Yii::$app->response->getHeaders()->set('Vary', 'Accept');
@@ -436,8 +440,6 @@ class FilesController extends Controller
                 if ( !file_exists( $directory . $this->module->thumbPath) ) {
                     mkdir($directory . $this->module->thumbPath, 0755, true);
                 }
-
-                error_log( $directory . $this->module->thumbPath . $name );
 
                 $thumb->save( $directory . $this->module->thumbPath . $name );
 
