@@ -10,6 +10,7 @@ namespace linchpinstudios\filemanager\widgets;
 use Yii;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 use yii\widgets\InputWidget;
 use linchpinstudios\filemanager\models\Files;
 /**
@@ -56,7 +57,7 @@ use linchpinstudios\filemanager\models\Files;
 
         $randomId = uniqid();
 
-        $selectOptions = Files::find->select(['id', 'title'])->all();
+        $selectOptions = Files::find()->select(['id', 'title'])->all();
 
         if ($this->hasModel()) {
             echo Html::activeDropDownList($this->model, $this->attribute, ArrayHelper::map($selectOptions, 'id', 'title'), $this->options);
