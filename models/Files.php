@@ -98,8 +98,8 @@ class Files extends \yii\db\ActiveRecord
 
             } else {
 
-                unlink( $this->url );
-                unlink( $this->thumbnail_url );
+                unlink( $directory . $this->url );
+                unlink( $directory . $this->thumbnail_url );
 
             }
 

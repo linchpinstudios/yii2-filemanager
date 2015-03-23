@@ -452,7 +452,9 @@ class FilesController extends Controller
 
 
 
-
+    /**
+     * [awsInit description]
+     */
     protected function awsInit(){
 
         $awsConfig = $this->module->aws;
