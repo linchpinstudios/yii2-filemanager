@@ -56,12 +56,12 @@ use linchpinstudios\filemanager\models\Files;
 
         $randomId = uniqid();
 
-        $selectOptions = Files::scenario('list')->findAll();
+        $selectOptions = Files::find->select(['id', 'title'])->all();
 
         if ($this->hasModel()) {
-            echo Html::activeDropDownList($this->model, $this->attribute, $selectOptions, $this->options);
+            echo Html::activeDropDownList($this->model, $this->attribute, ArrayHelper::map($selectOptions, 'id', 'title'), $this->options);
         } else {
-            echo Html::dropDownList($this->name, $this->value, $selectOptions, $this->options);
+            echo Html::dropDownList($this->name, $this->value, ArrayHelper::map($selectOptions, 'id', 'title'), $this->options);
         }
 
     }
