@@ -175,7 +175,7 @@ class FilesController extends Controller
         $awsConfig = $this->module->aws;
 
         if($awsConfig['enable']){
-            $model->url = $awsConfig['url'].$model->url;
+            $model->url = $this->module->url.$model->url;
         }else{
             $model->url = '/'.$model->url;
         }
@@ -408,7 +408,7 @@ class FilesController extends Controller
         $directory  = Yii::getAlias( $this->module->directory );
 
         if($awsConfig['enable']){
-            $path = $awsConfig['url'].$path;
+            $path = $this->module->url.$path;
         }
 
         foreach($thumbnails as $tn){
