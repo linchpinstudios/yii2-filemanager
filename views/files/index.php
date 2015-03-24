@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 $awsConfig = $this->context->module->aws;
 
 if($awsConfig['enable']){
-    $path = $awsConfig['url'];
+    $path = $this->context->module->url;
 }else{
     $path = '/';
 }
