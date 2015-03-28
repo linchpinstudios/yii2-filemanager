@@ -288,6 +288,7 @@ class FilesController extends Controller
     {
         $model = new Files();
         $tags = FileTag::find()->orderBy('name')->all();
+        $newTag = new FileTag;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -310,6 +311,7 @@ class FilesController extends Controller
             return $this->render('create', [
                 'model' => $model,
                 'tags' => $tags,
+                'newTag' => $newTag,
             ]);
         }
     }
@@ -324,6 +326,7 @@ class FilesController extends Controller
     {
         $model = $this->findModel($id);
         $tags = FileTag::find()->orderBy('name')->all();
+        $newTag = new FileTag;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
@@ -346,6 +349,7 @@ class FilesController extends Controller
             return $this->render('update', [
                 'model' => $model,
                 'tags' => $tags,
+                'newTag' => $newTag,
             ]);
         }
     }

@@ -115,7 +115,7 @@ use yii\helpers\ArrayHelper;
           ]);
       ?>
           <div class="modal-body">
-              <?= $formTag->field($tag, 'name')->textInput(['maxlength' => 255]) ?>
+              <?= $formTag->field($newTag, 'name')->textInput(['maxlength' => 255]) ?>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
