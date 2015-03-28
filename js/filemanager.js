@@ -107,13 +107,13 @@ function createTag( form ) {
         data: form.serialize(),
         success: function(data) {
             if(data.error){
-                $('.field-tag-name').addClass('has-error');
-                $('.field-tag-name .help-block').text(data.error.name);
+                $('.field-filetag-name').addClass('has-error');
+                $('.field-filetag-name .help-block').text(data.error.name);
             }
             if(data.success){
                 $('#myModal').modal('hide');
-                $('#tag-name').val('');
-                $('#tag-con').append('<div class=\"col-md-3\"><label><input type=\"checkbox\" name=\"features[]\" checked=\"checked\" value=\"'+data.model.id+'\"> '+data.model.name+'</label></div>');
+                $('#filetag-name').val('');
+                $('#tag-con').append('<div class=\"col-md-3\"><label><input type=\"checkbox\" name=\"tag[]\" checked=\"checked\" value=\"'+data.model.id+'\"> '+data.model.name+'</label></div>');
             }
         }
     });

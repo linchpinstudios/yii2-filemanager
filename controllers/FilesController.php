@@ -286,6 +286,9 @@ class FilesController extends Controller
      */
     public function actionCreate()
     {
+
+        FilemanagerAssets::register($this->view);
+
         $model = new Files();
         $tags = FileTag::find()->orderBy('name')->all();
         $newTag = new FileTag;
@@ -324,6 +327,9 @@ class FilesController extends Controller
      */
     public function actionUpdate($id)
     {
+
+        FilemanagerAssets::register($this->view);
+
         $model = $this->findModel($id);
         $tags = FileTag::find()->orderBy('name')->all();
         $newTag = new FileTag;
