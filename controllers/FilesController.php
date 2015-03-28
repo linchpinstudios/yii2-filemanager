@@ -6,6 +6,7 @@ use Yii;
 use linchpinstudios\filemanager\models\Files;
 use linchpinstudios\filemanager\models\FilesSearch;
 use linchpinstudios\filemanager\models\FileTag;
+use linchpinstudios\filemanager\models\FileTagRelationships;
 use yii\base\InvalidConfigException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -289,6 +290,21 @@ class FilesController extends Controller
         $tags = FileTag::find()->orderBy('name')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            FileTagRelationships::deleteAll('file_id = '.$model->id);
+            $fielTags = new FileTagRelationships;
+            $data = Yii::$app->request->post();
+
+            if ( isset($data['tags']) ) {
+                foreach ($data['tags'] as $value) {
+                    $fielTags->isNewRecord    = true;
+                    $fielTags->id             = null;
+                    $fielTags->file_id = $model->id;
+                    $fielTags->tag_id         = $value;
+                    $fielTags->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -307,12 +323,29 @@ class FilesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $tags = FileTag::find()->orderBy('name')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            FileTagRelationships::deleteAll('file_id = '.$model->id);
+            $fielTags = new FileTagRelationships;
+            $data = Yii::$app->request->post();
+
+            if ( isset($data['tags']) ) {
+                foreach ($data['tags'] as $value) {
+                    $fielTags->isNewRecord    = true;
+                    $fielTags->id             = null;
+                    $fielTags->file_id = $model->id;
+                    $fielTags->tag_id         = $value;
+                    $fielTags->save();
+                }
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'tags' => $tags,
             ]);
         }
     }
