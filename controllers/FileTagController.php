@@ -103,6 +103,26 @@ class FileTagController extends Controller
         return $this->redirect(['index']);
     }
 
+
+    public function actionCreatetag()
+    {
+
+        Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = new FileTag();
+
+        if($model->load(Yii::$app->request->post())){
+            if ($model->validate() && $model->save()) {
+                return ['success' => true, 'model' => $model];
+            }
+        }
+
+        return ['error' => $model->errors];
+
+    }
+
+
     /**
      * Finds the FileTag model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

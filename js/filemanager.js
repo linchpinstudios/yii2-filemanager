@@ -95,9 +95,40 @@
 }( window.filemanager = window.filemanager || {}, jQuery ));
 
 
+function createTag( form ) {
+
+    if( $(form).find('.has-error').length ) {
+        return false;
+    }
+
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(data) {
+            if(data.error){
+                $('.field-tag-name').addClass('has-error');
+                $('.field-tag-name .help-block').text(data.error.name);
+            }
+            if(data.success){
+                $('#myModal').modal('hide');
+                $('#tag-name').val('');
+                $('#tag-con').append('<div class=\"col-md-3\"><label><input type=\"checkbox\" name=\"features[]\" checked=\"checked\" value=\"'+data.model.id+'\"> '+data.model.name+'</label></div>');
+            }
+        }
+    });
+
+    return false;
+}
+
 
 $(function() {
 
+    $('#create_tag').submit(function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        createTag( $(this) );
+    });
 
     $('#fileUploadBtn').click(function(e){
 
@@ -142,6 +173,8 @@ $(function() {
         }
 
     });
+
+
 
 });
 

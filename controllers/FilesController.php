@@ -5,6 +5,7 @@ namespace linchpinstudios\filemanager\controllers;
 use Yii;
 use linchpinstudios\filemanager\models\Files;
 use linchpinstudios\filemanager\models\FilesSearch;
+use linchpinstudios\filemanager\models\FileTag;
 use yii\base\InvalidConfigException;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -285,12 +286,14 @@ class FilesController extends Controller
     public function actionCreate()
     {
         $model = new Files();
+        $tags = FileTag::find()->orderBy('name')->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
+                'tags' => $tags,
             ]);
         }
     }
