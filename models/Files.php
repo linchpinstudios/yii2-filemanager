@@ -4,6 +4,7 @@ namespace linchpinstudios\filemanager\models;
 
 use Yii;
 use common\models\User;
+use common\models\FileTag;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
@@ -141,6 +142,15 @@ class Files extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+
+    /**
+     * [getFiles description]
+     */
+    public function getTags()
+    {
+        return $this->hasMany( FileTag::className(), ['id' => 'tag_id'])->viaTable( '{{%FileTagRelationships}}', ['file_id' => 'id']);
     }
 
 }

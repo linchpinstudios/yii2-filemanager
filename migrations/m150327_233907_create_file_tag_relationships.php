@@ -18,6 +18,7 @@ class m150327_233907_create_file_tag_relationships extends Migration
             'id'      => Schema::TYPE_PK,
             'file_id' => Schema::TYPE_INTEGER . ' NOT NULL',
             'tag_id'  => Schema::TYPE_INTEGER . ' NOT NULL',
+            'sort'    => Schema::TYPE_INTEGER . ' DEFAULT 0',
         ], $tableOptions);
 
     }

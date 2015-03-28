@@ -12,14 +12,16 @@ use yii\helpers\Html;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use yii\widgets\InputWidget;
-use linchpinstudios\filemanager\models\Files;
-/**
- * @see http://xdsoft.net/jqplugins/datetimepicker/
+use linchpinstudios\filemanager\models\FileTag;
+
+
+
+/*
  * @author Josh Hagel <joshhagel@linchpinstudios.com>
  * @since 0.1
  */
 
- class FileSelect extends InputWidget
+ class FileTagSelect extends InputWidget
  {
     /**
      * @var array the options for the DateTime JS plugin.
@@ -42,9 +44,9 @@ use linchpinstudios\filemanager\models\Files;
 
         $randomId = uniqid();
 
-        $imageArray = ArrayHelper::map(Files::find()->select(['id', 'title'])->all(), 'id', 'title');
+        $tagsArray = ArrayHelper::map( FiltTag::find()->select(['id', 'name']))->all(), 'id', 'name' );
 
-        $selectOptions = ArrayHelper::merge(['' => 'Select a Thumbnail'], $imageArray);
+        $selectOptions = ArrayHelper::merge(['' => 'Select a File Tag'], $tagsArray);
 
         if ($this->hasModel()) {
             echo Html::activeDropDownList($this->model, $this->attribute, $selectOptions, $this->options);
