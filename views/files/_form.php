@@ -16,8 +16,8 @@ use yii\helpers\ArrayHelper;
     <div class="row">
         <div class="col-sm-12 col-md-9">
 
-            <div class="panel">
-                <div class="panel-header">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     <strong>Details</strong>
                 </div>
                 <div class="panel-body">
@@ -48,25 +48,31 @@ use yii\helpers\ArrayHelper;
 
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel pandel-default">
+                        <div class="panel-heading">
+                            <strong>Tags</strong>
+                            <?= Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Add', ['#'], ['class' => 'pull-right', 'data-toggle' => 'modal', 'data-target' => '#myModal']) ?>
+                        </div>
+                        <div class="panel-body">
 
-            <div class="panel panel-default" id="plans-accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel-heading">
-                    <strong>Tags</strong>
-                </div>
-                <div class="panel-body">
+                            <div class="row">
+                                <?php
+                                    $availableTags = ArrayHelper::map($tags, 'id', 'name');
+                                    $preselectedTags = ArrayHelper::map(ArrayHelper::toArray($model->tags), 'name', 'id' );
+                                ?>
+                                <?= Html::checkboxList('tags',$preselectedTags,$availableTags,['id' => 'tag-con', 'separator'=>'', 'item' => function ($index, $label, $name, $checked, $value){
+                                    return '<div class="col-md-3">' . Html::checkbox($name, $checked, ['value' => $value, 'label' => $label, ]) . '</div>';
+                                }]) ?>
+                            </div>
 
-                    <div class="row">
-                        <?php
-                            $availableTags = ArrayHelper::map($tags, 'id', 'name');
-                            $preselectedTags = ArrayHelper::map(ArrayHelper::toArray($model->tags), 'name', 'id' );
-                        ?>
-                        <?= Html::checkboxList('tags',$preselectedTags,$availableTags,['id' => 'tag-con', 'separator'=>'', 'item' => function ($index, $label, $name, $checked, $value){
-                            return '<div class="col-md-3">' . Html::checkbox($name, $checked, ['value' => $value, 'label' => $label, ]) . '</div>';
-                        }]) ?>
+                        </div>
                     </div>
-
                 </div>
             </div>
+
 
         </div>
         <div class="col-sm-12 col-md-3">
@@ -75,8 +81,8 @@ use yii\helpers\ArrayHelper;
                 <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
             </div>
 
-            <div class="panel">
-                <div class="panel-header">
+            <div class="panel panel-default">
+                <div class="panel-heading">
                     <strong>Tags</strong>
                 </div>
                 <div class="panel-body">
