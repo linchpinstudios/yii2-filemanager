@@ -5,8 +5,8 @@ namespace linchpinstudios\filemanager\models;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
-use linchpinstudios\helpers\StringHelper;
-use linchpinstudios\models\Fiels;
+use linchpinstudios\filemanager\helpers\StringHelper;
+use linchpinstudios\filemanager\models\Files;
 
 /**
  * This is the model class for table "{{%file_tag}}".
