@@ -4,7 +4,6 @@ namespace linchpinstudios\filemanager\models;
 
 use Yii;
 use common\models\User;
-use common\models\FileTag;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
