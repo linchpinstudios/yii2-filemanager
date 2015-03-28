@@ -16,41 +16,48 @@ use yii\helpers\ArrayHelper;
     <div class="row">
         <div class="col-sm-12 col-md-9">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>Details</strong>
-                </div>
-                <div class="panel-body">
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-3">
-                            <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-                        </div>
-                        <div class="col-sm-12 col-md-3">
-                            <?= $form->field($model, 'file_name')->textInput(['maxlength' => true]) ?>
-                        </div>
-                        <div class="col-sm-12 col-md-3">
-                            <?= $form->field($model, 'width')->textInput() ?>
-                        </div>
-                        <div class="col-sm-12 col-md-3">
-                            <?= $form->field($model, 'height')->textInput() ?>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6">
-                            <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <?= $form->field($model, 'thumbnail_url')->textInput(['maxlength' => true]) ?>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
             <div class="row">
                 <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <strong>Details</strong>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-3">
+                                    <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <?= $form->field($model, 'file_name')->textInput(['maxlength' => true]) ?>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <?= $form->field($model, 'width')->textInput() ?>
+                                </div>
+                                <div class="col-sm-12 col-md-3">
+                                    <?= $form->field($model, 'height')->textInput() ?>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <?= $form->field($model, 'thumbnail_url')->textInput(['maxlength' => true]) ?>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+
                     <div class="panel pandel-default">
                         <div class="panel-heading">
                             <strong>Tags</strong>
@@ -70,6 +77,7 @@ use yii\helpers\ArrayHelper;
 
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -114,7 +122,7 @@ use yii\helpers\ArrayHelper;
       </div>
       <?php
           $formTag = ActiveForm::begin([
-              'action'                    => ['filemanager/fileTag/createtag'],
+              'action'                    => ['//filemanager/file-tag/createtag'],
               'enableAjaxValidation'      => false,
               'enableClientValidation'    => true,
               'id'                        => 'create_tag',
