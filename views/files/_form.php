@@ -58,7 +58,7 @@ use yii\helpers\ArrayHelper;
             <div class="row">
                 <div class="col-md-12">
 
-                    <div class="panel pandel-default">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <strong>Tags</strong>
                             <?= Html::a('<i class="glyphicon glyphicon-plus-sign"></i> Add', ['#'], ['class' => 'pull-right', 'data-toggle' => 'modal', 'data-target' => '#myModal']) ?>

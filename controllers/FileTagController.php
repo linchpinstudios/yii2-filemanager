@@ -5,8 +5,10 @@ namespace linchpinstudios\filemanager\controllers;
 use Yii;
 use linchpinstudios\filemanager\models\FileTag;
 use linchpinstudios\filemanager\models\FileTagSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Controller;
+use yii\web\Response;
+use yii\web\HttpException;
 use yii\filters\VerbFilter;
 
 /**
