@@ -9,7 +9,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use linchpinstudios\filemanager\models\Files;
+use linchpinstudios\filemanager\models\FileTag;
 
 /**
  * This is the model class for table "files".
