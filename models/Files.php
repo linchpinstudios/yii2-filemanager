@@ -150,7 +150,7 @@ class Files extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany( FileTag::className(), ['id' => 'tag_id'])->viaTable( '{{%FileTagRelationships}}', ['file_id' => 'id']);
+        return $this->hasMany( FileTag::className(), ['id' => 'tag_id'])->viaTable( '{{%file_tag_relationships}}', ['file_id' => 'id']);
     }
 
 }
