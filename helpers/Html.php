@@ -28,7 +28,7 @@ use linchpinstudios\filemanager\models\FileTag;
      * @access public
      * @return string
      */
-    public static function FileOutput($id = 0,$options = [],$urlOnly = false)
+    public static function FileOutput($id = 0, $options = [], $urlOnly = false, $thumbnail = false)
     {
 
         $awsConfig  = \Yii::$app->getModule('filemanager')->aws;
@@ -57,10 +57,18 @@ use linchpinstudios\filemanager\models\FileTag;
 
         $options = ArrayHelper::merge( $options, $terms );
 
-        if($urlOnly){
-            $return = $url.$file->url;
+        if($thumbnail){
+            if($urlOnly){
+                $return = $url.$file->thumbnail_url;
+            }else{
+                $return = Html::img($url.$file->thumbnail_url,$options);
+            }
         }else{
-            $return = Html::img($url.$file->url,$options);
+            if($urlOnly){
+                $return = $url.$file->url;
+            }else{
+                $return = Html::img($url.$file->url,$options);
+            }
         }
 
         return $return;
