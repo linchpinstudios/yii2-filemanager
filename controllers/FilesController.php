@@ -243,6 +243,7 @@ class FilesController extends Controller
         if($model->save()){
 
             $response['files'][] = [
+                'id'            => $model->id,
                 'url'           => $url.$model->url,
                 'thumbnailUrl'  => $url.$model->thumbnail_url,
                 'name'          => $model->title,

@@ -1,6 +1,7 @@
 <?php
 
 use yii\grid\GridView;
+use yii\helpers\Url;
 use dosamigos\fileupload\FileUploadUI;
 use yii\widgets\LinkPager;
 use yii\widgets\ActiveForm;
@@ -32,8 +33,8 @@ if($awsConfig['enable']){
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="pull-left">
-                        <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']), '', ['data-toggle' => 'modal', 'class' => 'btn btn-primary navbar-btn disabled', 'id' => 'fileGridBtn']); ?>
-                        <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']), '', ['class' => 'btn btn-success navbar-btn', 'data-toggle' => 'modal', 'id' => 'fileUploadBtn']); ?>
+                        <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-th-large']), '#', ['class' => 'btn btn-primary navbar-btn disabled', 'id' => 'fileGridBtn']); ?>
+                        <?= Html::a(Html::tag('i','',['class' => 'glyphicon glyphicon-cloud-upload']), '#', ['class' => 'btn btn-success navbar-btn', 'id' => 'fileUploadBtn']); ?>
                     </div>
 
                     <?php
@@ -81,7 +82,22 @@ if($awsConfig['enable']){
                             ],
                             'clientOptions' => [
                                 'maxFileSize' => 2000000,
-                            ]
+                            ],
+                            'clientEvents' => [
+                                    'fileuploaddone' => 'function(e, data) {
+                                        console.log(data);
+                                        $.each(data.result.files, function( index, value ){
+                                            console.log(value);
+                                            $("#fileGridManager .row").append(\'<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail"><a class="thumbnail" href="' . Url::to(['view']) . '?id=\' + value.id + \'" data-id="\' + value.id + \'"><span>\' + value.id + \'</span><img src="\' + value.thumbnailUrl + \'"></a></div>\');
+                                            $(\'#filemanagerUpload\').hide();
+                                            $(\'#fileGridManager,#fileGridFooter\').show();
+                                        });
+                                    }',
+                                    'fileuploadfail' => 'function(e, data) {
+                                        console.log(e);
+                                        console.log(data);
+                                    }',
+                            ],
                         ]);?>
                     </div>
                 </div>
