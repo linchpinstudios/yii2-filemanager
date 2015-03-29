@@ -29,19 +29,23 @@ class FilesController extends Controller
     public $page_size = 12;
 
     private $typeMap = [
-        'application/pdf'   => '.pdf',
-        'application/zip'   => '.zip',
-        'image/gif'         => '.gif',
-        'image/jpeg'        => '.jpg',
-        'image/png'         => '.png',
-        'text/css'          => '.css',
-        'text/html'         => '.html',
-        'text/javascript'   => '.js',
-        'text/plain'        => '.txt',
-        'text/xml'          => '.xml',
+        'application/pdf'                      => '.pdf',
+        'application/zip'                      => '.zip',
+        'image/gif'                            => '.gif',
+        'image/jpeg'                           => '.jpg',
+        'image/png'                            => '.png',
+        'text/css'                             => '.css',
+        'text/html'                            => '.html',
+        'text/javascript'                      => '.js',
+        'text/plain'                           => '.txt',
+        'text/xml'                             => '.xml',
+        'application/vnd.google-earth.kml+xml' => '.kml',
+        'application/vnd.google-earth.kmz'     => '.kmz',
     ];
 
     private $extentionMap = [
+        '.kml'  => 'application/vnd.google-earth.kml+xml',
+        '.kmz'  => 'application/vnd.google-earth.kmz',
         'pdf'   => 'application/pdf',
         'zip'   => 'application/zip',
         'gif'   => 'image/gif',
