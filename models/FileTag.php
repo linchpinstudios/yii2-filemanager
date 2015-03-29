@@ -79,10 +79,15 @@ class FileTag extends \yii\db\ActiveRecord
     }
 
 
-   public function getFirstfile()
-   {
-       return $this->hasMany( Files::className(), ['id' => 'file_id'])->viaTable( '{{%file_tag_relationships}}', ['tag_id' => 'id'])->orderBy( 'sort' )->limit(1);
-   }
+
+    public function getFirstfile()
+    {
+       return $this->hasMany( Files::className(), ['id' => 'file_id'])
+            ->viaTable( '{{%file_tag_relationships}}', ['tag_id' => 'id'], function($query){
+                return $query->orderBy( 'sort' );
+            })
+            ->limit(1);
+    }
 
 
 }

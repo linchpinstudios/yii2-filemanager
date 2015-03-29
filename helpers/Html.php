@@ -87,14 +87,14 @@ use linchpinstudios\filemanager\models\FileTag;
             return null;
         }
 
-        if ( !$fileTag->firstfile ) {
+        if ( !$fileTag->firstfile[0] ) {
             return null;
         }
 
         if ( $urlOnly ) {
-            $return = $url.$fileTag->firstfile->url;
+            $return = $url.$fileTag->firstfile[0]->url;
         } else {
-            $return = Html::img( $url.$fileTag->firstfile->url, $options );
+            $return = Html::img( $url.$fileTag->firstfile[0]->url, $options );
         }
 
         return $return;
