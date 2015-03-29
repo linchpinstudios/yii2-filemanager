@@ -77,7 +77,7 @@ class FileTag extends \yii\db\ActiveRecord
     {
         return $this->hasMany( Files::className(), ['id' => 'file_id'])
             ->viaTable( '{{%file_tag_relationships}}', ['tag_id' => 'id'], function($query){
-                return $qurey->orderBy( 'sort' );
+                return $query->orderBy( 'sort' );
             });
     }
 
