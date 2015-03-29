@@ -39,12 +39,12 @@ class FilesController extends Controller
         'text/javascript'                      => '.js',
         'text/plain'                           => '.txt',
         'text/xml'                             => '.xml',
-        'application/vnd.google-earth.kml+xml' => '.kml',
+        'application/octet-stream'             => '.kml',
         'application/vnd.google-earth.kmz'     => '.kmz',
     ];
 
     private $extentionMap = [
-        '.kml'  => 'application/vnd.google-earth.kml+xml',
+        '.kml'  => 'application/octet-stream',
         '.kmz'  => 'application/vnd.google-earth.kmz',
         'pdf'   => 'application/pdf',
         'zip'   => 'application/zip',
