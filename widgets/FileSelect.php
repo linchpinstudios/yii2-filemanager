@@ -42,7 +42,14 @@ use linchpinstudios\filemanager\models\Files;
 
         $randomId = uniqid();
 
-        $imageArray = ArrayHelper::map(Files::find()->select(['id', 'title'])->all(), 'id', 'title');
+        if ( isset($this->clientOptions['fileTypes']) && !in_array('*', $this->clientOptions['fileTypes']) ) {
+            echo 'here';
+            $where = ['type'=>$this->clientOptions['fileTypes']];
+        } else {
+            $where = [];
+        }
+
+        $imageArray = ArrayHelper::map(Files::find()->select(['id', 'title'])->where( $where )->all(), 'id', 'title');
 
         $selectOptions = ArrayHelper::merge(['' => 'Select a Thumbnail'], $imageArray);
 

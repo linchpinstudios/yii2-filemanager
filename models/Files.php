@@ -111,20 +111,20 @@ class Files extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_id' => 'User ID',
-            'url' => 'Url',
+            'id'            => 'ID',
+            'user_id'       => 'User ID',
+            'url'           => 'Url',
             'thumbnail_url' => 'Thumbnail Url',
-            'file_name' => 'File Name',
-            'type' => 'Type',
-            'title' => 'Title',
-            'size' => 'Size',
-            'width' => 'Width',
-            'height' => 'Height',
-            'date' => 'Date',
-            'date_gmt' => 'Date Gmt',
-            'update' => 'Update',
-            'update_gmt' => 'Update Gmt',
+            'file_name'     => 'File Name',
+            'type'          => 'Type',
+            'title'         => 'Title',
+            'size'          => 'Size',
+            'width'         => 'Width',
+            'height'        => 'Height',
+            'date'          => 'Date',
+            'date_gmt'      => 'Date Gmt',
+            'update'        => 'Update',
+            'update_gmt'    => 'Update Gmt',
         ];
     }
 
