@@ -44,7 +44,7 @@ use linchpinstudios\filemanager\models\FileTag;
 
         $randomId = uniqid();
 
-        $tagsArray = ArrayHelper::map( FiltTag::find()->select(['id', 'name'])->all(), 'id', 'name' );
+        $tagsArray = ArrayHelper::map( FileTag::find()->select(['id', 'name'])->all(), 'id', 'name' );
 
         $selectOptions = ArrayHelper::merge(['' => 'Select a File Tag'], $tagsArray);
 
