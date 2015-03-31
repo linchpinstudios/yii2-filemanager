@@ -22,7 +22,7 @@ class FileUploadAssets extends AssetBundle
         'css/filemanager.css',
     ];
     public $js = [
-        'js/context.js',
+        'js/filemanager.js',
         'js/jquery.filemanager.js',
     ];
     public $depends = [
