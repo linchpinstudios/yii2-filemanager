@@ -124,12 +124,15 @@ function createTag( form ) {
 
 $(function() {
 
-    $('#create_tag').submit(function(e){
-        e.preventDefault();
-        e.stopImmediatePropagation();
-        createTag( $(this) );
-    });
+    $(document).on('submit', '#create_tag', function() {
 
+        event.preventDefault();
+
+        createTag($(this));
+
+        return false;
+    });
+    
     $('#fileUploadBtn').click(function(e){
 
        e.preventDefault();
