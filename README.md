@@ -23,6 +23,11 @@ or add
 to the require section of your `composer.json` file.
 
 
+<h5>3) Run Migrations</h5>
+```
+./yii migrate/up --migrationPath=@vendor/linchpinstudios/yii2-filemanager/migrations
+```
+
 
 Configure
 ===============

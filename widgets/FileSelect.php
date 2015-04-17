@@ -49,7 +49,7 @@ use linchpinstudios\filemanager\models\Files;
             $where = [];
         }
 
-        $imageArray = ArrayHelper::map(Files::find()->select(['id', 'title'])->where( $where )->all(), 'id', 'title');
+        $imageArray = ArrayHelper::map(Files::find()->select(['id', 'title'])->where( $where )->orderBy('title')->all(), 'id', 'title');
 
         $selectOptions = ArrayHelper::merge(['' => 'Select a Thumbnail'], $imageArray);
 
