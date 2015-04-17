@@ -42,7 +42,7 @@ use linchpinstudios\filemanager\models\FileTag;
         $file = Files::findOne($id);
 
         if(!$file){
-            return null
+            return null;
         }
 
         if( !empty($file->fileTerms) ) {
