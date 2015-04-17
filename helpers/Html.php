@@ -39,14 +39,10 @@ use linchpinstudios\filemanager\models\FileTag;
 
         $terms      = [];
 
-        if($id == 0){
-            throw new \Exception('Please set ID');
-        }
-
         $file = Files::findOne($id);
 
         if(!$file){
-            throw new \Exception('Please select a file');
+            return null
         }
 
         if( !empty($file->fileTerms) ) {
@@ -84,10 +80,6 @@ use linchpinstudios\filemanager\models\FileTag;
         $url        = \Yii::$app->getModule('filemanager')->url;
 
         $path       = \Yii::$app->getModule('filemanager')->path;
-
-        if ( $id == 0 ) {
-            throw new \Exception('Please Set An ID');
-        }
 
         $fileTag = FileTag::findOne($id);
 
