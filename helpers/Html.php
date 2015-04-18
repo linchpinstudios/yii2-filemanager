@@ -87,7 +87,7 @@ use linchpinstudios\filemanager\models\FileTag;
             return null;
         }
 
-        if ( !$fileTag->firstfile[0] ) {
+        if ( !isset($fileTag->firstfile[0]) ) {
             return null;
         }
 
