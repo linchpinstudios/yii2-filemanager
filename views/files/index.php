@@ -64,7 +64,7 @@ if($awsConfig['enable']){
                                 foreach($models as $m){
 
                                     echo '<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail">';
-                                        echo Html::a( Html::tag('span',$m->id).'<img src="'.$path.$m->thumbnail_url.'" style="height:'.$this->context->module->thumbnails[0][1].'px;">', ['view', 'id' => $m->id],['class'=>'thumbnail',  'data-id' => $m->id]);
+                                        echo Html::a( '<img src="'.$path.$m->thumbnail_url.'" style="height:'.$this->context->module->thumbnails[0][1].'px;">', ['view', 'id' => $m->id],['class'=>'thumbnail',  'data-id' => $m->id]);
                                     echo '</div>';
 
                                 }
