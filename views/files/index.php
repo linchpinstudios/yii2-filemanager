@@ -88,7 +88,7 @@ if($awsConfig['enable']){
                                         console.log(data);
                                         $.each(data.result.files, function( index, value ){
                                             console.log(value);
-                                            $("#fileGridManager .row").append(\'<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail"><a class="thumbnail" href="' . Url::to(['view']) . '?id=\' + value.id + \'" data-id="\' + value.id + \'"><span>\' + value.id + \'</span><img src="\' + value.thumbnailUrl + \'"></a></div>\');
+                                            $("#fileGridManager .row").prepend(\'<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail"><a class="thumbnail" href="' . Url::to(['view']) . '?id=\' + value.id + \'" data-id="\' + value.id + \'"><span>\' + value.id + \'</span><img src="\' + value.thumbnailUrl + \'"></a></div>\');
                                             $(\'#filemanagerUpload\').hide();
                                             $(\'#fileGridManager,#fileGridFooter\').show();
                                         });
