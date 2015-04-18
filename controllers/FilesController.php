@@ -479,7 +479,7 @@ class FilesController extends Controller
 
                 $fc             = new \stdClass();
                 $fc->tempName   = 'temp/'.$name;
-                $fc->type       = $this->extentionMap[$fileInfo['extension']];
+                $fc->type       = $this->extentionMap[strtolower($fileInfo['extension'])];
 
                 $this->uploadAws($fc,$name,true);
 
