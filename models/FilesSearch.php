@@ -45,6 +45,7 @@ class FilesSearch extends Files
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['file_name' => SORT_ASC]],
         ]);
 
         $this->load($params);
@@ -72,6 +73,8 @@ class FilesSearch extends Files
             ->andFilterWhere(['like', 'file_name', $this->file_name])
             ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'title', $this->title]);
+
+
 
         return $dataProvider;
     }
