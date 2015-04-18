@@ -45,7 +45,7 @@ class FilesSearch extends Files
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['file_name' => SORT_ASC]],
+            'sort'=> ['defaultOrder' => ['date' => SORT_DESC]],
         ]);
 
         $this->load($params);
