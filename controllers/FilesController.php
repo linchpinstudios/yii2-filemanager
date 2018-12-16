@@ -26,6 +26,8 @@ use linchpinstudios\filemanager\assets\FilemanagerAssets;
 class FilesController extends Controller
 {
 
+    protected $accept;
+
     public $page_size = 12;
 
     private $typeMap = [
@@ -74,6 +76,12 @@ class FilesController extends Controller
 
 
 
+    public function __construct($id, $module, $config = [])
+    {
+        $this->accept = Yii::$app->request->getHeaders()->get('Accept');
+        parent::__construct($id, $module, $config);
+    }
+
 
 
     /**
@@ -111,6 +119,24 @@ class FilesController extends Controller
         $searchModel  = new FilesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $model        = new Files();
+
+        if ($this->accept == 'application/json') {
+            $models = $dataProvider->getModels();
+
+            foreach ($models as $model) {
+                $model->thumbnail_url = \Yii::$app->getModule('filemanager')->url . $model->thumbnail_url;
+                $model->url = \Yii::$app->getModule('filemanager')->url . $model->url;
+            }
+            $pagination = $dataProvider->pagination;
+            $data = [
+                'links' => $pagination->links,
+                'page' => $pagination->page++,
+                'pageCount' => $pagination->pageCount,
+                'images' => $dataProvider->getModels(),
+            ];
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $data;
+        }
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -278,9 +304,19 @@ class FilesController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+
+        if ($this->accept == 'application/json') {
+
+            $model->thumbnail_url = \Yii::$app->getModule('filemanager')->url . $model->thumbnail_url;
+            $model->url = \Yii::$app->getModule('filemanager')->url . $model->url;
+
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return $model;
+        }
 
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -340,7 +376,6 @@ class FilesController extends Controller
         $newTag = new FileTag;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
             FileTagRelationships::deleteAll('file_id = '.$model->id);
             $fielTags = new FileTagRelationships;
             $data = Yii::$app->request->post();

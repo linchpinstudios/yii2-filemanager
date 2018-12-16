@@ -15,19 +15,13 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class FilemanagerAssets extends AssetBundle
+class FilemanagerPreactAssets extends AssetBundle
 {
     public $sourcePath = '@vendor/linchpinstudios/yii2-filemanager/';
     public $css = [
         'css/filemanager.css',
     ];
     public $js = [
-        'js/context.js',
-        'js/filemanager.js',
         'js/bundle.js',
-    ];
-    public $depends = [
-        'yii\web\JqueryAsset',
-        'yii\bootstrap\BootstrapAsset',
     ];
 }

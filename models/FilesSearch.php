@@ -74,8 +74,6 @@ class FilesSearch extends Files
             ->andFilterWhere(['like', 'type', $this->type])
             ->andFilterWhere(['like', 'title', $this->title]);
 
-
-
         return $dataProvider;
     }
 }

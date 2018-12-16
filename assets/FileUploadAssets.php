@@ -24,6 +24,7 @@ class FileUploadAssets extends AssetBundle
     public $js = [
         'js/filemanager.js',
         'js/jquery.filemanager.js',
+        'js/bundle.js',
     ];
     public $depends = [
         'yii\web\JqueryAsset',
