@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 
 export default class Thumbnail extends Component {
-
   constructor() {
     super()
     this.state.clickHandler = () => {}
@@ -15,5 +14,4 @@ export default class Thumbnail extends Component {
       </a>
     </div>
   }
-
 }

@@ -15,5 +15,11 @@ module.exports = {
         loader: "babel-loader"
       }
     }]
+  },
+  resolve: {
+    alias: {
+      react: "preact-compat",
+      "react-dom": "preact-compat"
+    }
   }
 };

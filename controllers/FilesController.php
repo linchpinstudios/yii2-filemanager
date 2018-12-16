@@ -239,7 +239,7 @@ class FilesController extends Controller
 
         $file = UploadedFile::getInstance($model,'file_name');
 
-        $name = time().'-'.md5($file->name).$this->typeMap[$file->type];
+        $name = time().'-'.md5($file->name) . $this->typeMap[$file->type];
 
         //Upload file
             if($awsConfig['enable']){
@@ -272,18 +272,21 @@ class FilesController extends Controller
 
         if($model->save()){
 
-            $response['files'][] = [
-                'id'            => $model->id,
-                'url'           => $url.$model->url,
-                'thumbnailUrl'  => $url.$model->thumbnail_url,
-                'name'          => $model->title,
-                'type'          => $model->type,
-                'size'          => $model->size,
-                'deleteUrl'     => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
-                'deleteType'    => 'POST',
-            ];
+            // $response['files'][] = [
+            //     'id'            => $model->id,
+            //     'url'           => $url.$model->url,
+            //     'thumbnailUrl'  => $url.$model->thumbnail_url,
+            //     'name'          => $model->title,
+            //     'type'          => $model->type,
+            //     'size'          => $model->size,
+            //     'deleteUrl'     => \Yii::$app->urlManager->createUrl(['filemanager/files/delete']),
+            //     'deleteType'    => 'POST',
+            // ];
 
-            return $response;
+            $model->thumbnail_url = \Yii::$app->getModule('filemanager')->url . $model->thumbnail_url;
+            $model->url = \Yii::$app->getModule('filemanager')->url . $model->url;
+
+            return $model;
 
         }else{
 

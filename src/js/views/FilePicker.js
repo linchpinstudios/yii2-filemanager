@@ -4,6 +4,7 @@ import Thumbnail from '../components/Thumbnail'
 import Pagination from '../components/Pagination';
 import Selected from '../components/Selected';
 import Axios from 'axios';
+import Uploader from '../components/Uploader';
 
 export default class FilePicker extends Component {
 
@@ -125,8 +126,11 @@ export default class FilePicker extends Component {
     return (<div class="panel panel-default">
         <div class="panel-heading">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <Search term={this.state.term} clickHandler={this.searchHandler.bind(this)} />
+            </div>
+            <div class="col-sm-6">
+            <Uploader uploadCallback={image => this.addToSelected(image)}></Uploader>
             </div>
           </div>
         </div>
