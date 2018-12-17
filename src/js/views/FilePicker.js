@@ -7,7 +7,6 @@ import Axios from 'axios';
 import Uploader from '../components/Uploader';
 
 export default class FilePicker extends Component {
-
   constructor(props) {
     super(props);
     // set initial time:
@@ -51,6 +50,11 @@ export default class FilePicker extends Component {
     })
   }
 
+  handleUploaded(image) {
+    this.addToSelected(image)
+    this.getPage()
+  }
+
   addToSelected(image) {
     let match = this.state.selected.find(img => image === img)
     if (match) return
@@ -87,7 +91,9 @@ export default class FilePicker extends Component {
     let params = { page }
 
     if (this.state.term !== '') params["FilesSearch[title]"] = this.state.term
+
     this.clearThumbnails()
+
     Axios.get('/filemanager/files/index', {
       params,
       headers: {
@@ -130,13 +136,13 @@ export default class FilePicker extends Component {
               <Search term={this.state.term} clickHandler={this.searchHandler.bind(this)} />
             </div>
             <div class="col-sm-6">
-            <Uploader uploadCallback={image => this.addToSelected(image)}></Uploader>
+            <Uploader uploadCallback={image => this.handleUploaded(image)}></Uploader>
             </div>
           </div>
         </div>
         <div class="panel-body">
           <div class="row">
-            {this.thumbnails(this.state.images)}
+            { this.thumbnails(this.state.images) }
           </div>
         </div>
         <div class="panel-footer">
@@ -178,6 +184,6 @@ export default class FilePicker extends Component {
 
 const styles = {
   selected: {
-    backgroundColor: '#eeeff2'
+    backgroundColor: '#eeeff2',
   }
 }

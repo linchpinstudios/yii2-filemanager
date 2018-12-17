@@ -9,11 +9,6 @@ export default class Uploader extends Component {
     this.refs = {}
   }
 
-  onDrop(acceptedFiles, rejectedFiles) {
-    console.log('Accepted files: ', acceptedFiles);
-    console.log('Rejected files: ', rejectedFiles);
-  }
-
   handleFiles(e) {
     let files = e.target.files
     console.log(files)
@@ -30,7 +25,7 @@ export default class Uploader extends Component {
   upload(file) {
     let formData = new FormData;
     formData.append('Files[file_name]', file)
-    return Axios.post('/filemanager/files/upload', formData, {
+    return Axios.post('/filemanager/files/uploadpicker', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'X-CSRF-Token': this.state.csrfToken,
@@ -42,7 +37,15 @@ export default class Uploader extends Component {
   render(props, state) {
     if (props.uploadCallback) state.uploadCallback = props.uploadCallback
     return (<div>
-      <input type="file" ref={el => this.refs.fileInput = el} onChange={this.handleFiles.bind(this)} multiple="multiple" />
+      <input type="file" ref={el => this.refs.fileInput = el} onChange={this.handleFiles.bind(this)} multiple="multiple" style={styles.input} />
+      <a class="btn btn-success btn-block" onClick={() => this.refs.fileInput.click()}>Upload</a>
     </div>)
+  }
+}
+
+
+const styles = {
+  input: {
+    display: 'none'
   }
 }

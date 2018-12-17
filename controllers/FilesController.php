@@ -298,6 +298,74 @@ class FilesController extends Controller
     }
 
 
+        /**
+     * actionUpload function.
+     *
+     * @access public
+     * @return string JSON
+     */
+    public function actionUploadpicker()
+    {
+        Yii::$app->response->getHeaders()->set('Vary', 'Accept');
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $model = new Files();
+
+        $path       = $this->module->path;
+        $thumbPath  = $this->module->thumbPath;
+        $directory  = Yii::getAlias( $this->module->directory );
+        $url        = $this->module->url;
+        $awsConfig  = $this->module->aws;
+        $thumbnails = $this->module->thumbnails;
+
+        $file = UploadedFile::getInstance($model,'file_name');
+
+        $name = time().'-'.md5($file->name) . $this->typeMap[$file->type];
+
+        //Upload file
+            if($awsConfig['enable']){
+                $this->uploadAws($file,$name);
+            }else{
+                if ( !file_exists( $directory . $path ) ) {
+                    //FileHelper::createDirectory( $directory . $path, 775);
+                    mkdir($directory . $path, 0755, true);
+                }
+
+                $file->saveAs( $directory . $path . $name);
+            }
+
+        //Create Thumbnails
+            if(!empty($thumbnails) && ($file->type == 'image/gif' || $file->type == 'image/jpeg' || $file->type == 'image/png')){
+                $this->createThumbnails($file,$name);
+            }
+
+
+        $model->user_id         = 0;
+        $model->url             = $path.$name;
+        $model->thumbnail_url   = $thumbPath.$name;
+        $model->file_name       = $name;
+        $model->title           = $file->name;
+        $model->type            = $file->type;
+        $model->title           = $file->name;
+        $model->size            = $file->size;
+
+        if($model->save()){
+
+            $model->thumbnail_url = \Yii::$app->getModule('filemanager')->url . $model->thumbnail_url;
+            $model->url = \Yii::$app->getModule('filemanager')->url . $model->url;
+
+            return $model;
+
+        }else{
+
+            error_log(print_r($model->getErrors(),true));
+
+            return false;
+        }
+
+    }
+
+
 
 
     /**
