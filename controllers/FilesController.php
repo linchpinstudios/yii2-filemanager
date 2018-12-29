@@ -565,7 +565,7 @@ class FilesController extends Controller
         $directory  = Yii::getAlias( $this->module->directory );
 
         if($awsConfig['enable']){
-            $path = $this->module->url.$path;
+            $path = 'https:' . $this->module->url . $path;
         }
 
         foreach($thumbnails as $tn){
