@@ -12,6 +12,9 @@ export default class FilePicker extends Component {
     // set initial time:
     this.props = props
     this.state = this.setDefaultState(props)
+
+    this.thumbnails = this.thumbnails.bind(this)
+    this.addToSelected = this.addToSelected.bind(this)
   }
 
   setDefaultState(props) {
@@ -33,7 +36,17 @@ export default class FilePicker extends Component {
   }
 
   getSelected() {
-    this.state.selectedIds.forEach(id => this.getById(id).then(image => this.state.selected.push(image)).catch(error => console.log(error)))
+    this.state.selectedIds.forEach(id => this.getById(id).then(image => this.state.selected.push(image)).then(() => {this.orderSelected(this.state.selectedIds)}).catch(error => console.log(error)))
+  }
+
+  orderSelected(order) {
+    let selected = order.map((index) => {
+      return this.state.selected.find(image => index == image.id)
+    }).filter((item) => item)
+    this.setState({
+      selected: selected,
+      selectedIds: order,
+    })
   }
 
   getById(id) {
@@ -44,7 +57,6 @@ export default class FilePicker extends Component {
           Accept: 'application/json'
         }
       }).then(response => response.data).then(data => {
-        console.log(data)
         resolve(data)
       }).catch(error => console.log('getById', reject(error)))
     })
@@ -115,7 +127,7 @@ export default class FilePicker extends Component {
   thumbnails(images) {
     let components = []
     images.forEach((image) => {
-      components.push(<Thumbnail image={image} clickHandler={this.addToSelected.bind(this)} />)
+      components.push(<Thumbnail image={image} clickHandler={this.addToSelected} />)
     })
     return components
   }
@@ -136,7 +148,7 @@ export default class FilePicker extends Component {
               <Search term={this.state.term} clickHandler={this.searchHandler.bind(this)} />
             </div>
             <div class="col-sm-6">
-            <Uploader uploadCallback={image => this.handleUploaded(image)}></Uploader>
+              <Uploader uploadCallback={image => this.handleUploaded(image)}></Uploader>
             </div>
           </div>
         </div>
@@ -153,7 +165,6 @@ export default class FilePicker extends Component {
 
   inputs() {
     let inputs = []
-    console.log('inputs', this.state.limit)
     if (this.state.limit == 1) {
       this.state.selectedIds.forEach((id, key) => inputs.push(<input type="hidden" value={id} name={`${this.props.target}`} />))
     } else {
@@ -168,7 +179,7 @@ export default class FilePicker extends Component {
       <div class="panel panel-default">
         <div class="panel-body">
           <div class="row" style={styles.selected.backgroundColor}>
-            <Selected images={state.selected} clickHandler={this.removeFromSelected.bind(this)} />
+            <Selected images={state.selected} removeHandle={this.removeFromSelected.bind(this)} orderHandler={ this.orderSelected.bind(this) } />
           </div>
           <div class="row">
             <div class="col-sm-12">

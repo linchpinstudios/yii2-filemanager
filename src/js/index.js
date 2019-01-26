@@ -2,7 +2,7 @@ import { h, render } from 'preact'
 import FilePicker from './views/FilePicker'
 import { Store, Actions} from './store/FilePickerStore'
 import { Provider, connect } from 'unistore/preact'
-
+import 'react-dragula/dist/dragula.min.css';
 
 var elements = document.querySelectorAll('*[data-filemanager]')
 
