@@ -82,21 +82,22 @@ if($awsConfig['enable']){
                             ],
                             'clientOptions' => [
                                 'maxFileSize' => 2000000,
+                                'debug' => true,
                             ],
                             'clientEvents' => [
-                                    'fileuploaddone' => 'function(e, data) {
-                                        console.log(data);
-                                        $.each(data.result.files, function( index, value ){
-                                            console.log(value);
-                                            $("#fileGridManager .row").prepend(\'<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail"><a class="thumbnail" href="' . Url::to(['view']) . '?id=\' + value.id + \'" data-id="\' + value.id + \'"><img src="\' + value.thumbnailUrl + \'"></a></div>\');
-                                            $(\'#filemanagerUpload\').hide();
-                                            $(\'#fileGridManager,#fileGridFooter\').show();
-                                        });
-                                    }',
-                                    'fileuploadfail' => 'function(e, data) {
-                                        console.log(e);
-                                        console.log(data);
-                                    }',
+                                'fileuploaddone' => 'function(e, data) {
+                                    console.log(data);
+                                    $.each(data.result.files, function( index, value ){
+                                        console.log(value);
+                                        $("#fileGridManager .row").prepend(\'<div class="col-xs-6 col-sm-4 col-md-3 image-thumbnail"><a class="thumbnail" href="' . Url::to(['view']) . '?id=\' + value.id + \'" data-id="\' + value.id + \'"><img src="\' + value.thumbnailUrl + \'"></a></div>\');
+                                        $(\'#filemanagerUpload\').hide();
+                                        $(\'#fileGridManager,#fileGridFooter\').show();
+                                    });
+                                }',
+                                'fileuploadfail' => 'function(e, data) {
+                                    console.log(e);
+                                    console.log(data);
+                                }',
                             ],
                         ]);?>
                     </div>

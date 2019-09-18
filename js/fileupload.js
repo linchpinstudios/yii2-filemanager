@@ -1,33 +1,19 @@
-
-
 (function( filemanager, $, undefined ) {
     "use strict";
-
-
-
     var _settings = {
         domWrapper: ''
     };
     var _selected;
     var _multiple = false;
-
-
-
     // public method
     filemanager.init = function(settings) {
         _settings = $.extend({}, settings);
     }
-
-
-
     filemanager.log = function(obj){
-        if(_settings.debug == true){
+        // if(_settings.debug == true){
             console.log(obj);
-        }
+        // }
     }
-
-
-
     /* Delete Building
      *
      *
@@ -59,31 +45,15 @@
             $(this).tab('show');
         });
 
-    }
+      filemanager.markSelected = function(){
 
+      filemanager.log('Mark Selected');
 
+      filemanager.selectFiles = function(){
 
-
-    filemanager.markSelected = function(){
-
-        filemanager.log('Mark Selected');
-
+      filemanager.log('Select Files');
 
     }
-
-
-
-
-    filemanager.selectFiles = function(){
-
-        filemanager.log('Select Files');
-
-
-
-    }
-
-
-
     /* Add to List Building
      *
      *
@@ -98,9 +68,6 @@
         return true;
 
     }
-
-
-
     /* Delete Photo
      *
      *
@@ -121,9 +88,6 @@
 			}
 		});
 
-	}
+  }
 
-
-
-
-}( window.filemanager = window.filemanager || {}, jQuery ));
+}( window.filemanager = window.filemanager || {}, jQuery ))

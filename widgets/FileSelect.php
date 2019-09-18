@@ -43,7 +43,6 @@ use linchpinstudios\filemanager\models\Files;
         $randomId = uniqid();
 
         if ( isset($this->clientOptions['fileTypes']) && !in_array('*', $this->clientOptions['fileTypes']) ) {
-            echo 'here';
             $where = ['type'=>$this->clientOptions['fileTypes']];
         } else {
             $where = [];
