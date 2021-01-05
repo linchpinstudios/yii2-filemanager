@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "linkstate": "^1.1.1",
     "preact": "^8.4.2",
     "preact-compat": "^3.18.4",
